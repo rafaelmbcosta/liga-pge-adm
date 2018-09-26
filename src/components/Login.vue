@@ -19,40 +19,37 @@
 
 <script>
 import axios from 'axios'
-import store from '../main.js'
-import VueLocalStorage from 'vue-localstorage'
 
 export default {
-  data: function() {
-    return{
+  data: function () {
+    return {
       email: null,
       password: null,
       errorMessage: ''
     }
   },
   methods: {
-    login(){
+    login () {
       axios.post('http://localhost:3000/user_token', {
         auth: {
           email: this.email,
           password: this.password
         }
       })
-      .then(response => {
-        this.token = response.data.jwt;
-        this.errorMessage = null;
-        this.$localStorage.set('token', response.data.jwt);
-      })
-      .catch(error => {
-        this.errorMessage = 'Erro ao recuperar token'
-      })
+        .then(response => {
+          this.token = response.data.jwt
+          this.errorMessage = null
+          this.$localStorage.set('token', response.data.jwt)
+        })
+        .catch(error => {
+          this.errorMessage = 'Erro ao recuperar token ' + error
+        })
     },
-    logout(){
+    logout () {
       this.$localStorage.set('token', null)
     },
-    getToken(){
-      console.log(this.$localStorage.get('token'));
-
+    getToken () {
+      console.log(this.$localStorage.get('token'))
     }
   }
 }
