@@ -19,6 +19,7 @@
 
 <script>
 import axios from 'axios'
+import VueLocalStorage from 'vue-localstorage'
 
 export default {
   data: function () {
