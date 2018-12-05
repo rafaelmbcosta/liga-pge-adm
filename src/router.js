@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue'
+import Season from './components/Season.vue'
 
 Vue.use(Router)
 
@@ -12,6 +13,11 @@ export default new Router({
       path: '/',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/seasons',
+      name: 'seasons',
+      component: Season
     },
     {
       path: '/about',
