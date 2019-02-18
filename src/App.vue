@@ -1,36 +1,44 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Login</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/seasons">Seasons</router-link> |
-      <router-link to="/season-settings">Stuff</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-toolbar app>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Administrador </span>
+        <span class="font-weight-light">LIGA PGE</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn to="/" flat>Login</v-btn>
+        <v-btn to="/seasons" flat>Seasons</v-btn>
+        <v-btn to="/season-settings" flat>Stuff</v-btn>
+        <v-btn to="/about" flat>About</v-btn>
+        <v-btn @click="logout()" to="/logout" flat>Logout</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <v-content>
+      Token: {{ token }}
+      <v-spacer></v-spacer>
+      <router-view/>
+    </v-content>
+  </v-app>
 </template>
-
 <script>
+
+export default {
+  name: 'App',
+  components: {
+  },
+  data () {
+    return {
+      token: null
+    }
+  },
+  created: function () {
+    this.token = this.$localStorage.get('token')
+  },
+  methods: {
+    logout () {
+      this.$localStorage.set('token', null)
+    }
+  }
+}
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
