@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from './views/Login.vue'
-import Season from './views/Season.vue'
-import SeasonSettings from './views/SeasonSettings.vue'
+import Login from './components/Login.vue'
+import Season from './components/Season.vue'
+import SeasonSettings from './components/SeasonSettings.vue'
 
 Vue.use(Router)
 

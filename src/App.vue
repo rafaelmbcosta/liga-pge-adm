@@ -15,7 +15,6 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
-      Token: {{ token }}
       <v-spacer></v-spacer>
       <router-view/>
     </v-content>
@@ -23,21 +22,16 @@
 </template>
 <script>
 
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'App',
-  components: {
-  },
-  data () {
-    return {
-      token: null
-    }
-  },
-  created: function () {
-    this.token = this.$localStorage.get('token')
+  computed: {
+    ...mapGetters(['getToken'])
   },
   methods: {
     logout () {
-      this.$localStorage.set('token', null)
+      ocalStorage.token = null
     }
   }
 }
