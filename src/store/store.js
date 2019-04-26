@@ -1,22 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import service from 'api-client'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    token: localStorage.token || null,
+    token: localStorage.token,
     url: '',
     messages: []
   },
   getters: {
-    getToken: state => {
-      return state.token
-    },
-    getMessages: state => {
-      return state.messages
-    }
+    getToken: state => { return state.token },
+    getMessages: state => { return state.messages }
   },
   mutations: {
     LOGIN(state, [ email, password ] ){
@@ -27,14 +24,21 @@ const store = new Vuex.Store({
         localStorage.token = response.data.jwt
       })
       .catch(error => {
-        state.messages.push('Login Inválido')
+        state.messages.push('Login Inválido '+error )
+        localStorage.token = null
       })
+    },
+    LOGOUT(){
+      localStorage.token = null
+      delete axios.defaults.headers.common['Authorization']
     }
   }, 
   actions: {
     login({ commit }, loginData){
-      console.log('A '+ loginData.email)
       commit('LOGIN', [ loginData.email, loginData.password] )
+    },
+    logout( { commit }) {
+      commit('LOGOUT')
     }
   }
 })

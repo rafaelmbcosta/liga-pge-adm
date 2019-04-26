@@ -11,7 +11,7 @@
         <v-btn to="/seasons" flat>Seasons</v-btn>
         <v-btn to="/season-settings" flat>Stuff</v-btn>
         <v-btn to="/about" flat>About</v-btn>
-        <v-btn @click="logout()" to="/logout" flat>Logout</v-btn>
+        <v-btn @click="logout" to="/logout" flat>Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -23,7 +23,7 @@
 </template>
 <script>
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -31,9 +31,7 @@ export default {
     ...mapGetters(['getToken', 'getMessages'])
   },
   methods: {
-    logout () {
-      LocalStorage.token = null
-    }
+    ...mapActions(['logout'])
   }
 }
 </script>
