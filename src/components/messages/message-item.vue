@@ -7,8 +7,8 @@
         </svg>
       </div>
       <div class="toast-content">
-        <p class="toast-type">{{ textoTipo }}</p>
-        <p class="toast-message">{{ message.texto }}</p>
+        <p class="toast-type">{{ textType }}</p>
+        <p class="toast-message">{{ message.text }}</p>
       </div>
       <div class="toast-close" @click="removeMessage(message)">
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.642 15.642" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 15.642 15.642">
@@ -29,11 +29,11 @@ export default {
     ])
   },
   computed: {
-    textoTipo() {
-      if (this.message.tipo === 'success'){
+    textType() {
+      if (this.message.type === 'success'){
         return 'Success !'
       }
-      if (this.message.tipo === 'error'){
+      if (this.message.type === 'error'){
         return 'Error !'
       }
     }
