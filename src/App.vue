@@ -8,9 +8,8 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn to="/" flat>Login</v-btn>
-        <v-btn to="/seasons" flat>Seasons</v-btn>
-        <v-btn to="/season-settings" flat>Stuff</v-btn>
-        <v-btn to="/about" flat>About</v-btn>
+        <v-btn to="/players" flat>Jogadores</v-btn>
+        <v-btn to="/about" flat>Sobre</v-btn>
         <v-btn @click="logout" to="/logout" flat>Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>

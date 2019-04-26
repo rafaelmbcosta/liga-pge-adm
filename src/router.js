@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './components/Login.vue'
-import Season from './components/Season.vue'
-import SeasonSettings from './components/SeasonSettings.vue'
+import Players from './components/players/Players.vue'
+import store from './store/store.js'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -16,14 +16,12 @@ export default new Router({
       component: Login
     },
     {
-      path: '/seasons',
-      name: 'seasons',
-      component: Season
-    },
-    {
-      path: '/season-settings',
-      name: 'season-settings',
-      component: SeasonSettings
+      path: '/players',
+      name: 'players',
+      component: Players,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/logout',
@@ -31,4 +29,19 @@ export default new Router({
       component: Login
     }
   ]
+})
+
+export default router
+
+router.beforeEach((to, from, next) => {
+  console.log(store.getters.isLoggedIn)
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next()
+      return
+    }
+    next('/login') 
+  } else {
+    next() 
+  }
 })
