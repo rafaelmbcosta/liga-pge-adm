@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import service from 'api-client'
 
 Vue.use(Vuex)
 
@@ -12,16 +13,28 @@ const store = new Vuex.Store({
   getters: {
     getToken: state => {
       return state.token
+    },
+    getMessages: state => {
+      return state.messages
     }
   },
   mutations: {
-    LOGIN(login, password){
-      login(login, password)
+    LOGIN(state, [ email, password ] ){
+      state.messages = []
+      service.serviceLogin(email, password)
+      .then(response => {
+        state.messages.push('Login realizado com Sucesso')
+        localStorage.token = response.data.jwt
+      })
+      .catch(error => {
+        state.messages.push('Login Inválido')
+      })
     }
   }, 
   actions: {
-    login({ commit }, login, password){
-      commit('LOGIN', login, password)
+    login({ commit }, loginData){
+      console.log('A '+ loginData.email)
+      commit('LOGIN', [ loginData.email, loginData.password] )
     }
   }
 })

@@ -14,7 +14,7 @@
                   <v-text-field
                     prepend-icon="person"
                     name="login"
-                    v-model="email"
+                    v-model="loginData.email"
                     label="Login"
                     type="text"
                     color="orange darken-2">
@@ -22,7 +22,7 @@
                   <v-text-field
                     id="password"
                     prepend-icon="lock"
-                    v-model="password"
+                    v-model="loginData.password"
                     name="password"
                     label="Password"
                     type="password" color="orange darken-2">
@@ -42,21 +42,19 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data: function () {
     return {
-      email: null,
-      password: null,
-      errorMessage: '',
+      loginData: {
+        email: null,
+        password: null
+      },
       drawer: null
     }
   },
   methods: {
     login () {
-      localStorage.token = 'Logou!'
-      // this.$store.dispatch('login', this.email, this.password)
+      this.$store.dispatch('login', this.loginData)
     }
   },
   props: {

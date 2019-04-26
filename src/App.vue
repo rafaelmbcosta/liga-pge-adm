@@ -16,6 +16,7 @@
     </v-toolbar>
     <v-content>
       <v-spacer></v-spacer>
+      {{ getMessages }}
       <router-view/>
     </v-content>
   </v-app>
@@ -27,11 +28,11 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['getToken'])
+    ...mapGetters(['getToken', 'getMessages'])
   },
   methods: {
     logout () {
-      ocalStorage.token = null
+      LocalStorage.token = null
     }
   }
 }
