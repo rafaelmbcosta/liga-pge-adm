@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Rafael Fera",
+        "active": true
+    },
+    {
+        "name": "Marcio Down",
+        "active": true
+    },
+    {
+        "name": "Fabio Teimoso da Silva",
+        "active": true
+    },
+    {
+        "name": "Cleber",
+        "active": false
+    },
+    {
+        "name": "Zanata",
+        "active": true
+    }
+]

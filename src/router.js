@@ -41,6 +41,7 @@ router.beforeEach((to, from, next) => {
       return
     } else {
       store.dispatch('sendMessage', ['error', 'Você não tem permissão para acessar esse conteúdo'])
+      router.push({name: 'login'})
     }
   } else {
     next() 

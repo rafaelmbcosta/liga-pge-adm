@@ -4,7 +4,7 @@
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Administrador </span>
-        <span class="font-weight-light">LIGA PGE</span>
+        <span class="font-weight-light orange--text">LIGA PGE</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">

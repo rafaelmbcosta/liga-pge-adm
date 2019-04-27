@@ -10,12 +10,14 @@ const store = new Vuex.Store({
   state: {
     url: '',
     token: null,
-    messages: []
+    messages: [],
+    players: []
   },
   getters: {
     getToken: state => { return state.token },
     getMessages: state => { return state.messages },
-    isLoggedIn: state => { return !!state.token } 
+    isLoggedIn: state => { return !!state.token },
+    getPlayers: state => { return state.players }
   },
   mutations: {
     LOGIN(state, [ email, password ] ){
@@ -38,12 +40,22 @@ const store = new Vuex.Store({
       store.commit('SEND_MESSAGE', ['success', 'Logout realizado com sucesso'])
     },
     REMOVE_MESSAGE( state, message ){
-      state.messages = state.messages.filter(function(m){
-        return message !== m 
+      state.messages = state.messages.filter(function(item){
+        return message !== item
       })
     },
     SEND_MESSAGE(state, [type, text] ) {
       state.messages.push({ type: type, text: text })
+    },
+    GET_PLAYERS(state) {
+      state.players = []
+      service.getPlayers()
+      .then(response =>  {
+        state.players = response.data
+      })
+      .catch(error => {
+        store.commit('SEND_MESSAGE', ['error', 'Erro ao acessar os Jogadores'])
+      })
     }
   }, 
   actions: {
@@ -58,6 +70,9 @@ const store = new Vuex.Store({
     },
     sendMessage( { commit }, messageArray ) {
       commit('SEND_MESSAGE', messageArray)
+    },
+    getPlayers({ commit }) {
+      commit('GET_PLAYERS')
     }
   }
 })
