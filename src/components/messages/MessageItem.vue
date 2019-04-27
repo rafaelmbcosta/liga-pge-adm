@@ -22,19 +22,25 @@
 import { mapActions } from 'vuex'
 
 export default {
+  created() {
+    let vm = this
+    setTimeout(() => {
+      vm.$store.dispatch('removeMessage', vm.message)
+    }, 3000);
+  },
   props: ['message'],
   methods: {
     ...mapActions([
-      ''
+      'removeMessage'
     ])
   },
   computed: {
     textType() {
       if (this.message.type === 'success'){
-        return 'Success !'
+        return 'Successo !'
       }
       if (this.message.type === 'error'){
-        return 'Error !'
+        return 'Erro !'
       }
     }
   }

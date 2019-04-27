@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import MessageItem from './message-item'
+import MessageItem from './MessageItem'
 import { mapGetters } from 'vuex'
 
 export default {

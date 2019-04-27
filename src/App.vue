@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <MessageList />
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Administrador </span>
@@ -23,6 +24,7 @@
 <script>
 
 import { mapGetters, mapActions } from 'vuex'
+import MessageList from './components/messages/MessageList'
 
 export default {
   name: 'App',
@@ -31,6 +33,9 @@ export default {
   },
   methods: {
     ...mapActions(['logout'])
+  },
+  components: {
+    MessageList
   }
 }
 </script>

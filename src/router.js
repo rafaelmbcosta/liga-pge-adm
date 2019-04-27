@@ -30,7 +30,7 @@ let router = new Router({
     }
   ]
 })
-
+ 
 export default router
 
 router.beforeEach((to, from, next) => {
@@ -39,8 +39,9 @@ router.beforeEach((to, from, next) => {
     if (store.getters.isLoggedIn) {
       next()
       return
+    } else {
+      store.dispatch('sendMessage', ['error', 'Você não tem permissão para acessar esse conteúdo'])
     }
-    next('/login') 
   } else {
     next() 
   }
