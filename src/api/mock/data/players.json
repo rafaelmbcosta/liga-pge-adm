@@ -1,11 +1,27 @@
 [
     {
         "name": "Rafael Fera",
-        "active": true
+        "active": true,
+        "teams": [
+            { 
+              "name": "Ferrimbahçe",
+              "active": true 
+            },
+            { 
+              "name": "Ferrim Saint-germain",
+              "active": false
+            }
+        ]
     },
     {
         "name": "Marcio Down",
-        "active": true
+        "active": false,
+        "teams": [
+          { 
+            "name": "Down Futball United",
+            "active": true 
+          }
+        ]
     },
     {
         "name": "Fabio Teimoso da Silva",

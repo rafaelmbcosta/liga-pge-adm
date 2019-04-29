@@ -3,6 +3,10 @@
     <v-toolbar light color="orange lighten-2">
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title class="text-xs-center">Jogadores</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>add_circle_outline</v-icon>
+      </v-btn>
     </v-toolbar>
     <v-list two-line>
       <PlayerItem

@@ -4,6 +4,9 @@
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title class="text-xs-center">Times</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>add_circle_outline</v-icon>
+      </v-btn>
     </v-toolbar>
   </v-card>
 </template>
