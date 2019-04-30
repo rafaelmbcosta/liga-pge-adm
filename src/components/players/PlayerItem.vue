@@ -10,11 +10,10 @@
       </v-list-tile-content>
 
       <v-list-tile-action>
-         <v-btn small color="orange lighten-2" 
-                :disabled="isLoading"
-                @click="changeStatus()">
-                  {{ playerClass.btnText }}
-         </v-btn>
+        <v-icon :color="'orange darken-1'" @click="changeStatus()">create</v-icon>
+      </v-list-tile-action>
+      <v-list-tile-action>
+        <v-icon :color="'red red accent-2'" @click="changeStatus()">close</v-icon>
       </v-list-tile-action>
     </v-list-tile>
      <v-divider v-if="!last"> </v-divider>
@@ -33,16 +32,12 @@ export default {
       playerClass: null,
       class: {
         active: {
-          icon: 'check_circle_outline',
+          icon: 'check_circle',
           iconColor: 'teal lighten-1',
-          btnText: 'DESATIVAR',
-          btnColor: 'red lighten-2'
         },
         disabled: {
-          icon: 'block',
-          iconColor: 'red lighten-2',
-          btnText: 'ATIVAR',
-          btnColor: 'teal lighten-1'
+          icon: 'error',
+          iconColor: 'red accent-2',
         }
       }
     }

@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "name": "Rafael Fera",
         "active": true,
         "teams": [
@@ -14,6 +15,7 @@
         ]
     },
     {
+        "id": 2,
         "name": "Marcio Down",
         "active": false,
         "teams": [
@@ -24,14 +26,17 @@
         ]
     },
     {
+        "id": 3,
         "name": "Fabio Teimoso da Silva",
         "active": true
     },
     {
+        "id": 4,
         "name": "Cleber",
         "active": false
     },
     {
+        "id": 5,
         "name": "Zanata",
         "active": true
     }

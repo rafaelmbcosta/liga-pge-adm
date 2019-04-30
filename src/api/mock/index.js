@@ -1,6 +1,7 @@
-//https://tahazsh.com/use-mock-data-in-vue
+//reference: https://tahazsh.com/use-mock-data-in-vue
 
 import players from './data/players.json'
+import store from '@/store/store.js'
 
 const fetch = (mockData, time = 0) => {
   return new Promise((resolve) => {
@@ -13,6 +14,10 @@ const fetch = (mockData, time = 0) => {
 export default {
   getPlayers () {
     return fetch({ 'data': players }, 500)
+  },
+  addPlayer(player) {
+    store.state.players.push(player)
+    return fetch({ 'data': { "sucesso": true } }, 500)
   },
   serviceLogin (email, password) {
     if (email == 'admin@gmail.com' && password == '123456'){

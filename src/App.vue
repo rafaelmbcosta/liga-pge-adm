@@ -16,7 +16,6 @@
     </v-toolbar>
     <v-content>
       <v-spacer></v-spacer>
-      {{ getMessages }}
       <router-view/>
     </v-content>
   </v-app>

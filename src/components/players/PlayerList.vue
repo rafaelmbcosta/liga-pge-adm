@@ -1,10 +1,9 @@
 <template>
   <v-card>
     <v-toolbar light color="orange lighten-2">
-      <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title class="text-xs-center">Jogadores</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn icon @click="showPlayerForm">
         <v-icon>add_circle_outline</v-icon>
       </v-btn>
     </v-toolbar>
@@ -21,7 +20,7 @@
 </template>
   
   <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import PlayerItem from './PlayerItem'
 
   export default {
@@ -30,6 +29,9 @@
     },
     computed: {
       ...mapGetters(['getPlayers'])
+    },
+    methods: {
+      ...mapActions(['showPlayerForm'])
     },
     components: {
       PlayerItem

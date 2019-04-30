@@ -11,13 +11,15 @@ const store = new Vuex.Store({
     url: '',
     token: null,
     messages: [],
-    players: []
+    players: [],
+    playerForm: false
   },
   getters: {
     getToken: state => { return state.token },
     getMessages: state => { return state.messages },
     isLoggedIn: state => { return !!state.token },
-    getPlayers: state => { return state.players }
+    getPlayers: state => { return state.players },
+    getPlayerForm: state => { return state.playerForm }
   },
   mutations: {
     LOGIN(state, [ email, password ] ){
@@ -56,6 +58,16 @@ const store = new Vuex.Store({
       .catch(error => {
         store.commit('SEND_MESSAGE', ['error', 'Erro ao acessar os Jogadores'])
       })
+    },
+    ADD_PLAYER(state, player) {
+      service.addPlayer(player)
+      .then(response => {
+        store.commit('SEND_MESSAGE', ['success', 'Jogador criado com sucesso'])
+        store.commit('GET_PLAYERS')
+      })
+      .catch(error => {
+        store.commit('SEND_MESSAGE', ['error', 'Erro ao criar jogador'])
+      })
     }
   }, 
   actions: {
@@ -73,6 +85,15 @@ const store = new Vuex.Store({
     },
     getPlayers({ commit }) {
       commit('GET_PLAYERS')
+    },
+    addPlayer( { commit }, player){
+      commit('ADD_PLAYER', player)
+    }, 
+    showPlayerForm({ state }){
+      state.playerForm = true
+    },
+    hidePlayerForm({ state }){
+      state.playerForm = false
     }
   }
 })

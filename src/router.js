@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './components/Login.vue'
-import Players from './components/players/Players.vue'
+import Main from './components/players/Main.vue'
 import store from './store/store.js'
 
 Vue.use(Router)
@@ -18,7 +18,7 @@ let router = new Router({
     {
       path: '/players',
       name: 'players',
-      component: Players,
+      component: Main,
       // meta: {
       //   requiresAuth: true
       // }
