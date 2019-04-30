@@ -3,11 +3,11 @@
     <v-toolbar light color="orange lighten-2">
       <v-toolbar-title class="text-xs-center">Jogadores</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="showPlayerForm">
+      <v-btn icon @click="showPlayerForm(true)">
         <v-icon>add_circle_outline</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-list two-line>
+    <v-list>
       <PlayerItem
         v-for="(player, i) in getPlayers"
         :key="i" 
@@ -16,7 +16,7 @@
         avatar>
       </PlayerItem>
     </v-list>
-  </v-card>    
+  </v-card>
 </template>
   
   <script>

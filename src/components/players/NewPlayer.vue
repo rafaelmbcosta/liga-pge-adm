@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar light color="orange lighten-2">
-      <v-toolbar-title class="text-xs-center" >Novo Jogador</v-toolbar-title>
+      <v-toolbar-title class="text-xs-center" >{{ getPlayerFormTitle }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="hidePlayerForm">
         <v-icon>close</v-icon>
@@ -13,7 +13,7 @@
         v-model="valid"
         lazy-validation>
           <v-text-field
-            v-model="player.name"
+            v-model="name"
             :rules="nameRules"
             color="orange darken-1"
             label="Nome"
@@ -22,10 +22,9 @@
           </v-text-field>
 
           <v-switch
-              v-model="player.active"
+              v-model="active"
               label="Ativo"
               color="orange darken-1"
-              value="true"
               hide-details
             ></v-switch>
 
@@ -49,19 +48,37 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data() {
     return {
       valid: true,
       nameRules: [name => !!name || 'Nome é obrigatório'],
-      player: {
-        id: null,
-        name: '',
-        active: false
-      }
     }
+  },
+  computed: {
+    ...mapGetters(['getPlayerFormTitle']),
+    name: {
+      get(){
+        return this.$store.state.player.name
+      },
+      set(value){
+        this.$store.commit('UPDATE_PLAYER_NAME', value)
+      }
+    },
+    active: {
+       get(){
+        return this.$store.state.player.active
+      },
+      set(value){
+        this.$store.commit('UPDATE_PLAYER_ACTIVE', value)
+      }
+    },
+    formTitle(){
+      // if (this.getPlayerFormEdit) { return `Editar ${this.getPlayerEdit.name }` }
+      // if (!this.getPlayerFormEdit) { return 'Novo Jogador'}
+    },
   },
   methods: {
     ...mapActions(["hidePlayerForm"]),

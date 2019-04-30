@@ -10,10 +10,7 @@
       </v-list-tile-content>
 
       <v-list-tile-action>
-        <v-icon :color="'orange darken-1'" @click="changeStatus()">create</v-icon>
-      </v-list-tile-action>
-      <v-list-tile-action>
-        <v-icon :color="'red red accent-2'" @click="changeStatus()">close</v-icon>
+        <v-icon :color="'orange darken-1'" @click="editPlayer(player)">create</v-icon>
       </v-list-tile-action>
     </v-list-tile>
      <v-divider v-if="!last"> </v-divider>
@@ -21,6 +18,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   created() {
     if (this.player.active) { this.playerClass = this.class.active }
@@ -43,6 +42,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['editPlayer']),
     changeStatus() {
       this.isLoading = true
       this.playerClass.btnText = 'AGUARDE...'
