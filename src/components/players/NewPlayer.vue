@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar light color="orange lighten-2">
-      <v-toolbar-title class="text-xs-center" >{{ getPlayerFormTitle }}</v-toolbar-title>
+      <v-toolbar-title class="text-xs-center" >{{ playerFormTitle }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="hidePlayerForm">
         <v-icon>close</v-icon>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -58,7 +58,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getPlayerFormTitle']),
+    ...mapState(['playerFormTitle']),
     name: {
       get(){
         return this.$store.state.player.name
@@ -84,8 +84,7 @@ export default {
     ...mapActions(["hidePlayerForm"]),
     validate () {
       if (this.$refs.form.validate()) {
-        let playerCopy = JSON.parse(JSON.stringify(this.player))
-        this.$store.dispatch('addPlayer', playerCopy)
+        this.$store.dispatch('addPlayer')
       }
     },
     reset () {

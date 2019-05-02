@@ -29,7 +29,6 @@ const store = new Vuex.Store({
     getPlayerForm: state => { return state.playerForm },
     getPlayerFormEdit: state => { return state.playerFormEdit },
     getPlayerEdit: state => { return state.getPlayerEdit },
-    getPlayerFormTitle: state => { return state.playerFormTitle}
   },
   mutations: {
     LOGIN(state, [ email, password ] ){
@@ -38,7 +37,7 @@ const store = new Vuex.Store({
       .then(response => {
         store.commit('SEND_MESSAGE', ['success', 'Login realizado com Sucesso'])
         state.token =  response.data.jwt
-        router.push({path: 'players'})
+        router.push({ path: 'players' })
       })
       .catch(error => {
         store.commit('SEND_MESSAGE', ['error', 'Login Inválido'])
@@ -70,30 +69,34 @@ const store = new Vuex.Store({
       })
     },
     EDIT_PLAYER(state, player){
-      store.commit('TOGGLE_PLAYER_FORM', true, false)
-      state.player = player
+      store.commit('TOGGLE_PLAYER_FORM', [true, false])
+      state.player = JSON.parse(JSON.stringify(player))
       state.playerFormTitle = 'Editar Jogador'
     },
-    ADD_PLAYER(state, player) {
-      service.addPlayer(player)
+    ADD_PLAYER(state) {
+      service.addPlayer(state.player)
       .then(response => {
         store.commit('SEND_MESSAGE', ['success', 'Jogador criado com sucesso'])
         store.commit('GET_PLAYERS')
+        store.commit('RESET_PLAYER')
       })
       .catch(error => {
         store.commit('SEND_MESSAGE', ['error', 'Erro ao criar jogador '+error])
       })
     },
     RESET_PLAYER(state) {
-      state.player = {
+      console.log('entrou reset')
+      let newPlayer =  { 
         id: null,
         name: '',
         active: false
-      },
+      }
+      state.player = JSON.parse(JSON.stringify(newPlayer))
       state.playerFormTitle = 'Novo Jogador'
     },
-    TOGGLE_PLAYER_FORM(state, show, newPlayer) {
-      if (newPlayer) { state.commit('RESET_PLAYER') }
+    TOGGLE_PLAYER_FORM(state, [show, newPlayer]) {
+      console.log(newPlayer)
+      if (newPlayer === true) { store.commit('RESET_PLAYER') }
       state.playerForm = show
     },
     UPDATE_PLAYER_NAME(state, name) {
@@ -122,11 +125,11 @@ const store = new Vuex.Store({
     addPlayer( { commit }, player){
       commit('ADD_PLAYER', player)
     }, 
-    showPlayerForm({ commit }, newPlayer){
-      commit('TOGGLE_PLAYER_FORM', true, true)
+    showPlayerForm({ commit }){
+      commit('TOGGLE_PLAYER_FORM',[true, true])
     },
     hidePlayerForm({ commit }){
-      commit('TOGGLE_PLAYER_FORM', false, false)
+      commit('TOGGLE_PLAYER_FORM', [false, false])
     },
     editPlayer({ commit }, player) {
       commit('EDIT_PLAYER', player)
