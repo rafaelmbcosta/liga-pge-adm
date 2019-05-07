@@ -22,11 +22,11 @@
           </v-text-field>
 
           <v-switch
-              v-model="active"
-              label="Ativo"
-              color="orange darken-1"
-              hide-details
-            ></v-switch>
+            v-model="active"
+            label="Ativo"
+            color="orange darken-1"
+            hide-details
+          ></v-switch>
 
           <v-btn dark
             :disabled="!valid"

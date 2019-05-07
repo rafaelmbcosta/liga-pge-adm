@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <v-layout row  justify-center>
+    <v-layout row justify-center>
       <v-flex sm10>
         <NewPlayer v-if="getPlayerForm" />
       </v-flex>

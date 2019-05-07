@@ -4,33 +4,37 @@
       <v-toolbar-title class="text-xs-center">Times</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
-        <v-icon>add_circle_outline</v-icon>
+        <v-icon @click="showNewTeam">add_circle_outline</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-list two-line>
+    <v-list two-line subheader>
       <article v-for="(player, index) in getPlayers" :key="index">
-        <PlayerItem
+        <TeamItem
           v-for="(team, i) in player.teams"
           :key = "i" 
           :team = "team"
-          :last = "player.teams.length == i + 1"
+          :player = "player"
+          :first = "player === getPlayers[0] && player.teams[0] === team"
           avatar>
-        </PlayerItem>
+        </TeamItem>
       </article>
     </v-list>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import PlayerItem from "./PlayerItem"
+import { mapGetters, mapActions } from 'vuex'
+import TeamItem from "./TeamItem"
 
 export default {
   computed: {
     ...mapGetters(["getPlayers"])
   },
+  methods: {
+    ...mapActions(["showNewTeam"])
+  }
   components: {
-    PlayerItem
+    TeamItem
   }
 }
 </script>

@@ -12,7 +12,7 @@
         v-for="(player, i) in getPlayers"
         :key="i" 
         :player="player"
-        :last = "getPlayers.length == i + 1"
+        :first = "player === getPlayers[0]"
         avatar>
       </PlayerItem>
     </v-list>

@@ -1,5 +1,6 @@
 <template>
-  <article>
+  <article v-if="!!this.player">
+    <v-divider v-if="!first"> </v-divider>
       <v-list-tile>
       <v-list-tile-avatar>
         <v-icon large :color="playerClass.iconColor">{{ playerClass.icon }}</v-icon>
@@ -13,7 +14,6 @@
         <v-icon :color="'orange darken-1'" @click="editPlayer(player)">create</v-icon>
       </v-list-tile-action>
     </v-list-tile>
-     <v-divider v-if="!last"> </v-divider>
   </article>
 </template>
 
@@ -22,8 +22,8 @@ import { mapActions } from 'vuex'
 
 export default {
   created() {
-    if (this.player.active) { this.playerClass = this.class.active }
-    if (!this.player.active) { this.playerClass = this.class.disabled }
+    if (!!this.player && this.player.active) { this.playerClass = this.class.active }
+    if (!!this.player && !this.player.active) { this.playerClass = this.class.disabled }
   },
   data() {
     return{
@@ -48,7 +48,7 @@ export default {
       this.playerClass.btnText = 'AGUARDE...'
     }
   },
-  props: ['player', 'last']
+  props: ['player', 'first']
 }
 </script>
 
