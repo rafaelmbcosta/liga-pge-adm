@@ -7,5 +7,8 @@ module.exports = {
       'api-client',
       path.resolve(__dirname, `src/api/${apiClient}`)
     )
+  },
+  devServer: {
+    proxy: 'http://backend.test/',
   }
 }

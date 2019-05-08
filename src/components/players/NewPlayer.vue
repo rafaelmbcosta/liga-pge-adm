@@ -74,11 +74,7 @@ export default {
       set(value){
         this.$store.commit('UPDATE_PLAYER_ACTIVE', value)
       }
-    },
-    formTitle(){
-      // if (this.getPlayerFormEdit) { return `Editar ${this.getPlayerEdit.name }` }
-      // if (!this.getPlayerFormEdit) { return 'Novo Jogador'}
-    },
+    }
   },
   methods: {
     ...mapActions(["hidePlayerForm"]),

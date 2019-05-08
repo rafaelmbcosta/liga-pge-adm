@@ -19,6 +19,7 @@ const store = new Vuex.Store({
       name: '',
       active: false
     },
+    showTeamForm: false,
     playerFormTitle: 'Novo Jogador'
   },
   getters: {
@@ -29,6 +30,7 @@ const store = new Vuex.Store({
     getPlayerForm: state => { return state.playerForm },
     getPlayerFormEdit: state => { return state.playerFormEdit },
     getPlayerEdit: state => { return state.getPlayerEdit },
+    getTeamForm: state => { return state.showTeamForm }
   },
   mutations: {
     LOGIN(state, [ email, password ] ){
@@ -85,7 +87,6 @@ const store = new Vuex.Store({
       })
     },
     RESET_PLAYER(state) {
-      console.log('entrou reset')
       let newPlayer =  { 
         id: null,
         name: '',
@@ -95,7 +96,6 @@ const store = new Vuex.Store({
       state.playerFormTitle = 'Novo Jogador'
     },
     TOGGLE_PLAYER_FORM(state, [show, newPlayer]) {
-      console.log(newPlayer)
       if (newPlayer === true) { store.commit('RESET_PLAYER') }
       state.playerForm = show
     },
@@ -104,6 +104,9 @@ const store = new Vuex.Store({
     },
     UPDATE_PLAYER_ACTIVE(state, active) {
       state.player.active = active
+    },
+    TOGGLE_TEAM_FORM(state, show) {
+      state.showTeamForm = show
     }
   }, 
   actions: {

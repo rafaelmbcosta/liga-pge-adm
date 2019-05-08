@@ -4,7 +4,7 @@
       <v-toolbar-title class="text-xs-center">Times</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
-        <v-icon @click="showNewTeam">add_circle_outline</v-icon>
+        <v-icon @click="showTeamForm">add_circle_outline</v-icon>
       </v-btn>
     </v-toolbar>
     <v-list two-line subheader>
@@ -31,8 +31,10 @@ export default {
     ...mapGetters(["getPlayers"])
   },
   methods: {
-    ...mapActions(["showNewTeam"])
-  }
+    showTeamForm(){
+      this.$store.commit('TOGGLE_TEAM_FORM', true)
+    }
+  },
   components: {
     TeamItem
   }
