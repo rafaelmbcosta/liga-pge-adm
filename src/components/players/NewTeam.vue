@@ -3,13 +3,12 @@
     <v-toolbar light color="orange lighten-2">
       <v-toolbar-title class="text-xs-center" >Novo Time</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="">
+      <v-btn icon>
         <v-icon>close</v-icon>
       </v-btn>
     </v-toolbar>
 
     <v-card-text>
-      Asynchronous autocomplete
       <v-form
         ref="form"
         v-model="valid"
@@ -18,21 +17,54 @@
           :items="players"
           item-text="name"
           item-value="id"
+          color="orange darken-1"
           label="Selecione o Jogador"
         ></v-select>
 
         {{ selectedTeam }}
-        {{ autoCompleteInput }}
         <v-autocomplete
           v-model="selectedTeam"
+          :loading="loading"
           :items="teams"
           :search-input.sync="autoCompleteInput"
           cache-items
-          flat
-          hide-no-data
           hide-details
+          flat
+          item-text="nome"
+          item-value="slug"
+          color="orange darken-1"
           label="Buscar Time"
-        ></v-autocomplete>
+        >
+          <template v-slot:item="data">
+            <template v-if="typeof data.item !== 'object'">
+              {{ data.item.nome }}
+            </template>
+            <template v-else>
+              <v-list-tile-avatar>
+                <img :src="data.item.url_escudo_png">
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="data.item.nome"></v-list-tile-title>
+                <v-list-tile-sub-title v-html="data.item.nome_cartola"></v-list-tile-sub-title>
+              </v-list-tile-content>
+            </template>
+          </template>
+        </v-autocomplete>
+        <br/>
+        <v-btn dark
+          :disabled="!valid"
+          color="teal lighten-1"
+          @click="validate"
+        >
+          Salvar
+        </v-btn>
+
+        <v-btn dark
+          color="red accent-2"
+          @click="reset"
+        >
+          Limpar Campos
+        </v-btn>
       </v-form>
     </v-card-text>
   </v-card>
@@ -47,7 +79,8 @@ export default {
       autoCompleteInput: '',
       selectedTeam: null,
       teams: [],
-      valid: false
+      valid: false,
+      loading: false
     }
   },
   watch: {
@@ -56,16 +89,19 @@ export default {
     }
   },
   methods: {
+    queryName(val){
+      return "name"
+    },
     getTeams(val){
-      //https://medium.com/js-dojo/how-to-deal-with-cors-error-on-vue-cli-3-d78c024ce8d3
-      axios.get('http://api.cartolafc.globo.com/times?q='+val)
+      this.loading = true
+      axios.get('times?q='+val)
            .then(response => {
              this.teams = response.data
            })
            .catch(error => {
-             
-           })
-      this.autoCompleteInput = val
+            
+          })
+      this.loading = false
     }
   },
   props: ['players']
