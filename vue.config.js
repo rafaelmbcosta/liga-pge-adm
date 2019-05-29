@@ -9,6 +9,6 @@ module.exports = {
     )
   },
   devServer: {
-    proxy: 'https://api.cartolafc.globo.com/',
+    proxy: 'https://cartolafc.globo.com/',
   }
 }

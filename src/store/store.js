@@ -11,26 +11,21 @@ const store = new Vuex.Store({
     url: '',
     token: null,
     messages: [],
-    players: [],
-    playerForm: false,
-    playerFormEdit: false,
-    player: {
+    team: {
       id: null,
       name: '',
-      active: false
+      player_name: '',
+      url_escudo: ''
     },
-    showTeamForm: false,
-    playerFormTitle: 'Novo Jogador'
+    teams: [],
+    showTeamForm: false
   },
   getters: {
     getToken: state => { return state.token },
     getMessages: state => { return state.messages },
     isLoggedIn: state => { return !!state.token },
-    getPlayers: state => { return state.players },
-    getPlayerForm: state => { return state.playerForm },
-    getPlayerFormEdit: state => { return state.playerFormEdit },
-    getPlayerEdit: state => { return state.getPlayerEdit },
-    getTeamForm: state => { return state.showTeamForm }
+    getTeamForm: state => { return state.showTeamForm },
+    getTeams: state => { return state.teams }
   },
   mutations: {
     LOGIN(state, [ email, password ] ){
@@ -60,51 +55,42 @@ const store = new Vuex.Store({
     SEND_MESSAGE(state, [type, text] ) {
       state.messages.push({ type: type, text: text })
     },
-    GET_PLAYERS(state) {
-      state.players = []
-      service.getPlayers()
+    GET_TEAMS(state) {
+      state.teams = []
+      service.getTeams()
       .then(response =>  {
-        state.players = response.data
+        state.teams = response.data
       })
       .catch(error => {
-        store.commit('SEND_MESSAGE', ['error', 'Erro ao acessar os Jogadores'])
+        store.commit('SEND_MESSAGE', ['error', 'Erro ao acessar os times'])
       })
     },
-    EDIT_PLAYER(state, player){
-      store.commit('TOGGLE_PLAYER_FORM', [true, false])
-      state.player = JSON.parse(JSON.stringify(player))
-      state.playerFormTitle = 'Editar Jogador'
-    },
-    ADD_PLAYER(state) {
-      service.addPlayer(state.player)
-      .then(response => {
-        store.commit('SEND_MESSAGE', ['success', 'Jogador criado com sucesso'])
-        store.commit('GET_PLAYERS')
-        store.commit('RESET_PLAYER')
-      })
-      .catch(error => {
-        store.commit('SEND_MESSAGE', ['error', 'Erro ao criar jogador '+error])
-      })
-    },
-    RESET_PLAYER(state) {
-      let newPlayer =  { 
-        id: null,
-        name: '',
-        active: false
-      }
-      state.player = JSON.parse(JSON.stringify(newPlayer))
-      state.playerFormTitle = 'Novo Jogador'
-    },
-    TOGGLE_PLAYER_FORM(state, [show, newPlayer]) {
-      if (newPlayer === true) { store.commit('RESET_PLAYER') }
-      state.playerForm = show
-    },
-    UPDATE_PLAYER_NAME(state, name) {
-      state.player.name = name
-    },
-    UPDATE_PLAYER_ACTIVE(state, active) {
-      state.player.active = active
-    },
+    // ADD_TEAM(state) {
+    //   service.addTeam(state.team)
+    //   .then(response => {
+    //     store.commit('SEND_MESSAGE', ['success', 'Time criado com sucesso'])
+    //     store.commit('GET_PLAYERS')
+    //     store.commit('RESET_PLAYER')
+    //   })
+    //   .catch(error => {
+    //     store.commit('SEND_MESSAGE', ['error', 'Erro ao criar jogador '+error])
+    //   })
+    // },
+    // RESET_PLAYER(state) {
+    //   let newPlayer =  { 
+    //     id: null,
+    //     name: '',
+    //     active: false
+    //   }
+    //   state.player = JSON.parse(JSON.stringify(newPlayer))
+    //   state.playerFormTitle = 'Novo Jogador'
+    // },
+    // UPDATE_PLAYER_NAME(state, name) {
+    //   state.player.name = name
+    // },
+    // UPDATE_PLAYER_ACTIVE(state, active) {
+    //   state.player.active = active
+    // },
     TOGGLE_TEAM_FORM(state, show) {
       state.showTeamForm = show
     }
@@ -113,7 +99,7 @@ const store = new Vuex.Store({
     login({ commit }, loginData){
       commit('LOGIN', [loginData.email, loginData.password] )
     },
-    logout( { commit }) {
+    logout({ commit }) {
       commit('LOGOUT')
     },
     removeMessage( { commit }, message) {
@@ -122,21 +108,21 @@ const store = new Vuex.Store({
     sendMessage( { commit }, messageArray ) {
       commit('SEND_MESSAGE', messageArray)
     },
-    getPlayers({ commit }) {
-      commit('GET_PLAYERS')
-    },
-    addPlayer( { commit }, player){
-      commit('ADD_PLAYER', player)
-    }, 
-    showPlayerForm({ commit }){
-      commit('TOGGLE_PLAYER_FORM',[true, true])
-    },
-    hidePlayerForm({ commit }){
-      commit('TOGGLE_PLAYER_FORM', [false, false])
-    },
-    editPlayer({ commit }, player) {
-      commit('EDIT_PLAYER', player)
-    }
+    // getTeams({ commit }) {
+    //   commit('GET_TEAMS')
+    // },
+    // addPlayer( { commit }, player){
+    //   commit('ADD_PLAYER', player)
+    // }, 
+    // showPlayerForm({ commit }){
+    //   commit('TOGGLE_PLAYER_FORM',[true, true])
+    // },
+    // hidePlayerForm({ commit }){
+    //   commit('TOGGLE_PLAYER_FORM', [false, false])
+    // },
+    // editPlayer({ commit }, player) {
+    //   commit('EDIT_PLAYER', player)
+    // }
   }
 })
 

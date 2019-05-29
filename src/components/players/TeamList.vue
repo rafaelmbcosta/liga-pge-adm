@@ -8,27 +8,25 @@
       </v-btn>
     </v-toolbar>
     <v-list two-line subheader>
-      <article v-for="(player, index) in getPlayers" :key="index">
         <TeamItem
-          v-for="(team, i) in player.teams"
+          v-for="(team, i) in getTeams"
           :key = "i" 
           :team = "team"
           :player = "player"
-          :first = "player === getPlayers[0] && player.teams[0] === team"
+          :first = "i == 0"
           avatar>
         </TeamItem>
-      </article>
     </v-list>
   </v-card>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import TeamItem from "./TeamItem"
 
 export default {
   computed: {
-    ...mapGetters(["getPlayers"])
+    ...mapGetters(["getTeams"])
   },
   methods: {
     showTeamForm(){

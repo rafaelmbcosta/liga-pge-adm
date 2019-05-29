@@ -13,13 +13,6 @@
         ref="form"
         v-model="valid"
         lazy-validation>
-       <v-select
-          :items="players"
-          item-text="name"
-          item-value="id"
-          color="orange darken-1"
-          label="Selecione o Jogador"
-        ></v-select>
 
         {{ selectedTeam }}
         <v-autocomplete
@@ -54,14 +47,12 @@
         <v-btn dark
           :disabled="!valid"
           color="teal lighten-1"
-          @click="validate"
         >
           Salvar
         </v-btn>
 
         <v-btn dark
           color="red accent-2"
-          @click="reset"
         >
           Limpar Campos
         </v-btn>
@@ -104,7 +95,6 @@ export default {
       this.loading = false
     }
   },
-  props: ['players']
 }
 </script>
 

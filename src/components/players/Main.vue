@@ -2,12 +2,7 @@
   <v-container grid-list-md text-xs-center>
     <v-layout row justify-center>
       <v-flex sm10>
-        <NewTeam v-if="getTeamForm" :players="getPlayers"/>
-      </v-flex>
-    </v-layout>
-    <v-layout row justify-center>
-      <v-flex sm10>
-        <NewPlayer v-if="getPlayerForm"/>
+        <NewTeam v-if="getTeamForm"/>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -16,10 +11,7 @@
       </v-flex>
     </v-layout>
     <v-layout row justify-center>
-      <v-flex sm5>
-        <PlayerList />
-      </v-flex>
-      <v-flex sm5>
+      <v-flex sm10>
         <TeamList />
       </v-flex>
     </v-layout>
@@ -28,29 +20,23 @@
 
 <script>
 
-import PlayerList from './PlayerList'
 import TeamList from './TeamList'
-import NewPlayer from './NewPlayer'
 import NewTeam from './NewTeam'
 import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['getPlayerForm', 'getTeamForm', 'getPlayers'])
+    ...mapGetters(['getTeamForm', 'getTeams'])
   },
   components: {
-    PlayerList,
     TeamList,
-    NewPlayer,
     NewTeam
   }
 }
 </script>
 
 <style scoped>
-  NewPlayer{
-    margin-bottom: 40px;
-  }
+
 </style>
 
 
