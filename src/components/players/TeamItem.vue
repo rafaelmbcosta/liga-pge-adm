@@ -7,7 +7,7 @@
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title>{{ team.name }}</v-list-tile-title>
-        <v-list-tile-sub-title>{{ player.name }}</v-list-tile-sub-title>
+        <v-list-tile-sub-title>{{ team.player_name }}</v-list-tile-sub-title>
       </v-list-tile-content>
       <v-list-tile-action>
         <v-switch 
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  props: ["team", "first", "player"]
+  props: ["team", "first"]
 }
 </script>
 

@@ -7,16 +7,17 @@
         <v-icon @click="showTeamForm">add_circle_outline</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-list two-line subheader>
-        <TeamItem
-          v-for="(team, i) in getTeams"
-          :key = "i" 
-          :team = "team"
-          :player = "player"
-          :first = "i == 0"
-          avatar>
-        </TeamItem>
-    </v-list>
+    <v-card-text>
+      <v-list two-line subheader>
+          <TeamItem
+            v-for="(team, i) in getTeams"
+            :key = "i" 
+            :team = "team"
+            :first = "i == 0"
+            avatar>
+          </TeamItem>
+      </v-list>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -25,6 +26,9 @@ import { mapGetters } from 'vuex'
 import TeamItem from "./TeamItem"
 
 export default {
+  created() {
+    this.$store.dispatch("loadTeams")
+  },
   computed: {
     ...mapGetters(["getTeams"])
   },

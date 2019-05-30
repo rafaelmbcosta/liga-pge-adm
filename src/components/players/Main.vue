@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <v-layout row justify-center>
-      <v-flex sm10>
+      <v-flex sm8>
         <NewTeam v-if="getTeamForm"/>
       </v-flex>
     </v-layout>
@@ -11,7 +11,7 @@
       </v-flex>
     </v-layout>
     <v-layout row justify-center>
-      <v-flex sm10>
+      <v-flex sm8>
         <TeamList />
       </v-flex>
     </v-layout>

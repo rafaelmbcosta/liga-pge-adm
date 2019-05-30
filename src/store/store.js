@@ -108,21 +108,9 @@ const store = new Vuex.Store({
     sendMessage( { commit }, messageArray ) {
       commit('SEND_MESSAGE', messageArray)
     },
-    // getTeams({ commit }) {
-    //   commit('GET_TEAMS')
-    // },
-    // addPlayer( { commit }, player){
-    //   commit('ADD_PLAYER', player)
-    // }, 
-    // showPlayerForm({ commit }){
-    //   commit('TOGGLE_PLAYER_FORM',[true, true])
-    // },
-    // hidePlayerForm({ commit }){
-    //   commit('TOGGLE_PLAYER_FORM', [false, false])
-    // },
-    // editPlayer({ commit }, player) {
-    //   commit('EDIT_PLAYER', player)
-    // }
+    loadTeams({ commit }) {
+      commit('GET_TEAMS')
+     }
   }
 })
 
