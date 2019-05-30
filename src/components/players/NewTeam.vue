@@ -47,7 +47,7 @@
         <v-btn dark
           :disabled="!valid"
           color="teal lighten-1"
-          @click="sucesso"
+          @click="addTeam"
         >
           Salvar
         </v-btn>
@@ -86,8 +86,8 @@ export default {
     ...mapActions([
       'hideNewTeam'
     ]),
-    sucesso(){
-      this.$store.dispatch('sendMessage', ['success', 'Deu bom'])
+    addTeam(){
+      // Segue action
     },
     erro(){
       this.$store.dispatch('sendMessage', ['error', 'Deu ruim'])
