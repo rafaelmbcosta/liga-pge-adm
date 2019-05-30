@@ -1,5 +1,6 @@
 <template>
   <v-card>
+    {{ process.env }}
     <v-toolbar light color="orange lighten-2">
       <v-toolbar-title class="text-xs-center">Times</v-toolbar-title>
       <v-spacer></v-spacer>

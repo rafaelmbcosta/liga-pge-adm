@@ -1,6 +1,22 @@
 <template>
   <v-app>
-    <MessageList />
+    <v-snackbar
+      v-if="snackBar.show"
+      v-model="snackBar"
+      :color="snackBar.color"
+      :timeout="6000"
+      :vertical='true'
+      :top="true"
+    >
+      {{ snackBar.text }}
+      <v-btn
+        dark
+        flat
+        @click="closeSnack"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Administrador </span>
@@ -13,6 +29,7 @@
         <v-btn to="/about" flat>Sobre</v-btn>
         <v-btn @click="logout" to="/logout" flat>Logout</v-btn>
       </v-toolbar-items>
+      
     </v-toolbar>
     <v-content>
       <v-spacer></v-spacer>
@@ -22,19 +39,22 @@
 </template>
 <script>
 
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import MessageList from './components/messages/MessageList'
 
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['getToken', 'getMessages'])
+    ...mapGetters(['getToken']),
+    ...mapState(['snackBar'])
   },
   methods: {
-    ...mapActions(['logout'])
+    ...mapActions(['logout', 'closeSnack'])
   },
-  components: {
-    MessageList
+  data() {
+    return {
+    }
   }
+
 }
 </script>

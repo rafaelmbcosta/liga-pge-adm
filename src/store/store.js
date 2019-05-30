@@ -18,11 +18,15 @@ const store = new Vuex.Store({
       url_escudo: ''
     },
     teams: [],
-    showTeamForm: false
+    showTeamForm: false,
+    snackBar: {
+      show: false,
+      color: '',
+      text: ''
+    }
   },
   getters: {
     getToken: state => { return state.token },
-    getMessages: state => { return state.messages },
     isLoggedIn: state => { return !!state.token },
     getTeamForm: state => { return state.showTeamForm },
     getTeams: state => { return state.teams }
@@ -53,7 +57,10 @@ const store = new Vuex.Store({
       })
     },
     SEND_MESSAGE(state, [type, text] ) {
-      state.messages.push({ type: type, text: text })
+      let color = ''
+      if (type === 'error') { color = 'red lighten-1' }
+      if (type === 'success') { color = 'teal lighten-1' }
+      state.snackBar = { color: color, text: text, show: true }
     },
     GET_TEAMS(state) {
       state.teams = []
@@ -62,7 +69,7 @@ const store = new Vuex.Store({
         state.teams = response.data
       })
       .catch(error => {
-        store.commit('SEND_MESSAGE', ['error', 'Erro ao acessar os times'])
+        store.commit('SEND_MESSAGE', ['error', error])
       })
     },
     // ADD_TEAM(state) {
@@ -110,7 +117,13 @@ const store = new Vuex.Store({
     },
     loadTeams({ commit }) {
       commit('GET_TEAMS')
-     }
+    },
+    closeSnack({ state }) {
+      state.snackBar.show = false
+    },
+    hideNewTeam({ commit }) {
+      commit('TOGGLE_TEAM_FORM', false)
+    }
   }
 })
 

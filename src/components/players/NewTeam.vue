@@ -3,7 +3,7 @@
     <v-toolbar light color="orange lighten-2">
       <v-toolbar-title class="text-xs-center" >Novo Time</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn icon @click="hideNewTeam">
         <v-icon>close</v-icon>
       </v-btn>
     </v-toolbar>
@@ -47,12 +47,14 @@
         <v-btn dark
           :disabled="!valid"
           color="teal lighten-1"
+          @click="sucesso"
         >
           Salvar
         </v-btn>
 
         <v-btn dark
-          color="red accent-2"
+          color="orange darken-1"
+          @click="erro"
         >
           Limpar Campos
         </v-btn>
@@ -63,6 +65,7 @@
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
   data(){
@@ -76,21 +79,30 @@ export default {
   },
   watch: {
     autoCompleteInput (val) {
-      val && val !== this.selectedTeam && this.getTeams(val)
+      val && val !== this.selectedTeam && this.getAPITeams(val)
     }
   },
   methods: {
+    ...mapActions([
+      'hideNewTeam'
+    ]),
+    sucesso(){
+      this.$store.dispatch('sendMessage', ['success', 'Deu bom'])
+    },
+    erro(){
+      this.$store.dispatch('sendMessage', ['error', 'Deu ruim'])
+    },
     queryName(val){
       return "name"
     },
-    getTeams(val){
+    getAPITeams(val){
       this.loading = true
       axios.get('times?q='+val)
            .then(response => {
              this.teams = response.data
            })
            .catch(error => {
-            
+            this.$store.dispatch('sendMessage', ['error', error])
           })
       this.loading = false
     }
