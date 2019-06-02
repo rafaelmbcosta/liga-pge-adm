@@ -11,6 +11,7 @@
       </v-list-tile-content>
       <v-list-tile-action>
         <v-switch 
+          v-if = "edit"
           v-model="team.active"
           color="orange darken-1"
         > 
@@ -22,7 +23,7 @@
 
 <script>
 export default {
-  props: ["team", "first"]
+  props: ["team", "first", "edit"]
 }
 </script>
 

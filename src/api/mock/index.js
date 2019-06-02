@@ -16,7 +16,13 @@ export default {
     return fetch({ 'data': teams }, 500)
   },
   addTeam(team) {
-    store.state.teams.push(team)
+    console.log('dentro do mock: '+team.nome)
+    let params = { name: team.nome,
+                   player_name: team.nome_cartola,
+                   url_escudo_png: team.url_escudo_png,
+                   active: true 
+    }
+    store.state.teams.push(params)
     return fetch({ 'data': { "sucesso": true } }, 500)
   },
   serviceLogin (email, password) {

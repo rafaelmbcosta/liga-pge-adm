@@ -14,6 +14,7 @@
             :key = "i" 
             :team = "team"
             :first = "i == 0"
+            :edit = "true"
             avatar>
           </TeamItem>
       </v-list>

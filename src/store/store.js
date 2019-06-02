@@ -11,12 +11,6 @@ const store = new Vuex.Store({
     url: '',
     token: null,
     messages: [],
-    team: {
-      id: null,
-      name: '',
-      player_name: '',
-      url_escudo: ''
-    },
     teams: [],
     showTeamForm: false,
     snackBar: {
@@ -72,17 +66,17 @@ const store = new Vuex.Store({
         store.commit('SEND_MESSAGE', ['error', error])
       })
     },
-    // ADD_TEAM(state) {
-    //   service.addTeam(state.team)
-    //   .then(response => {
-    //     store.commit('SEND_MESSAGE', ['success', 'Time criado com sucesso'])
-    //     store.commit('GET_PLAYERS')
-    //     store.commit('RESET_PLAYER')
-    //   })
-    //   .catch(error => {
-    //     store.commit('SEND_MESSAGE', ['error', 'Erro ao criar jogador '+error])
-    //   })
-    // },
+    ADD_TEAM(team) {
+      console.log('TEAM: '+team.nome)
+      service.addTeam(team)
+      .then(response => {
+        store.commit('SEND_MESSAGE', ['success', 'Time criado com sucesso'])
+        store.commit('GET_TEAMS')
+      })
+      .catch(error => {
+        store.commit('SEND_MESSAGE', ['error', 'Erro ao criar jogador '+error])
+      })
+    },
     // RESET_PLAYER(state) {
     //   let newPlayer =  { 
     //     id: null,
@@ -123,6 +117,9 @@ const store = new Vuex.Store({
     },
     hideNewTeam({ commit }) {
       commit('TOGGLE_TEAM_FORM', false)
+    },
+    addTeam({ commit }, team){
+      commit('ADD_TEAM', team)
     }
   }
 })

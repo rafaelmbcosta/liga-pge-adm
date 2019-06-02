@@ -7,39 +7,49 @@
         <v-icon>close</v-icon>
       </v-btn>
     </v-toolbar>
-
     <v-card-text>
       <v-form
         ref="form"
         v-model="valid"
         lazy-validation>
-
-        {{ selectedTeam }}
         <v-autocomplete
           v-model="selectedTeam"
           :loading="loading"
           :items="teams"
           :search-input.sync="autoCompleteInput"
           cache-items
-          hide-details
-          flat
+          :rules="autocompleteRules"
+          hide-no-data
           item-text="nome"
-          item-value="slug"
           color="orange darken-1"
           label="Buscar Time"
+          return-object
         >
-          <template v-slot:item="data">
+          <template v-slot:selection="data">
+            <v-chip
+              :selected="data.selected"
+              class="chip--select-multi"
+            >
+              <v-avatar>
+                <img :src="data.item.url_escudo_png" >
+              </v-avatar>
+              {{ data.item.nome }} ({{ data.item.nome_cartola }})
+            </v-chip>
+          </template>
+          <template v-slot:item="data" >
             <template v-if="typeof data.item !== 'object'">
               {{ data.item.nome }}
             </template>
             <template v-else>
-              <v-list-tile-avatar>
-                <img :src="data.item.url_escudo_png">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title v-html="data.item.nome"></v-list-tile-title>
-                <v-list-tile-sub-title v-html="data.item.nome_cartola"></v-list-tile-sub-title>
-              </v-list-tile-content>
+              <TeamItem 
+                :team="{ name: data.item.nome,
+                        player_name: data.item.nome_cartola,
+                        url_escudo_png: data.item.url_escudo_png,
+                        active: false }"
+                :first="true"
+                :edit="false"
+              >
+              </TeamItem>
             </template>
           </template>
         </v-autocomplete>
@@ -47,14 +57,14 @@
         <v-btn dark
           :disabled="!valid"
           color="teal lighten-1"
-          @click="addTeam"
+          @click="validate"
         >
           Salvar
         </v-btn>
 
         <v-btn dark
           color="orange darken-1"
-          @click="erro"
+          @click="cleanFields"
         >
           Limpar Campos
         </v-btn>
@@ -66,12 +76,16 @@
 <script>
 import axios from 'axios'
 import { mapActions } from 'vuex'
+import TeamItem from './TeamItem'
 
 export default {
   data(){
     return {
       autoCompleteInput: '',
       selectedTeam: null,
+      autocompleteRules: [
+        v => !!v || 'Time é necessário'
+      ],
       teams: [],
       valid: false,
       loading: false
@@ -86,11 +100,16 @@ export default {
     ...mapActions([
       'hideNewTeam'
     ]),
-    addTeam(){
-      // Segue action
+    validate(){
+      if (this.$refs.form.validate()) {
+        console.log('partiu validate: '+this.selectedTeam.nome)
+        this.$store.dispatch('addTeam', this.selectedTeam)
+      }
     },
-    erro(){
-      this.$store.dispatch('sendMessage', ['error', 'Deu ruim'])
+
+    cleanFields(){
+      this.autoCompleteInput = null
+      this.selectedTeam = null
     },
     queryName(val){
       return "name"
@@ -106,8 +125,11 @@ export default {
             this.$store.dispatch('sendMessage', ['error', error])
           })
       this.loading = false
-    }
+    },
   },
+  components: {
+    TeamItem
+  }
 }
 </script>
 
