@@ -97,7 +97,8 @@ export default {
     },
     getAPITeams(val){
       this.loading = true
-      axios.get('times?q='+val)
+      let server = process.env.VUE_APP_OFFICIAL_API_ADDRESS
+      axios.get(server+'times?q='+val)
            .then(response => {
              this.teams = response.data
            })

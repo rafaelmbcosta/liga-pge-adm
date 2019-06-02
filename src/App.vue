@@ -40,7 +40,6 @@
 <script>
 
 import { mapGetters, mapActions, mapState } from 'vuex'
-import MessageList from './components/messages/MessageList'
 
 export default {
   name: 'App',
