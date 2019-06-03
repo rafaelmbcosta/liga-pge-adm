@@ -1,7 +1,5 @@
 <template>
   <article>
-    {{ team.id }}
-    {{ team.active }}
     <v-divider v-if="!first"> </v-divider>
     <v-list-tile>
       <v-list-tile-avatar>
