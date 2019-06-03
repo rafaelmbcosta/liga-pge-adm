@@ -12,6 +12,10 @@ const fetch = (mockData, time = 0) => {
 }
 
 export default {
+  teamActivation(_team, _value){
+    return fetch({ 'data': { "sucesso": true } }, 500)
+
+  },
   getTeams () {
     return fetch({ 'data': teams }, 500)
   },

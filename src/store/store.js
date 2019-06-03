@@ -9,6 +9,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     url: '',
+    loading: false,
     token: null,
     messages: [],
     teams: [],
@@ -34,7 +35,7 @@ const store = new Vuex.Store({
         state.token =  response.data.jwt
         router.push({ path: 'players' })
       })
-      .catch(error => {
+      .catch(_error => {
         store.commit('SEND_MESSAGE', ['error', 'Login Inválido'])
         state.token = null
       })
@@ -66,16 +67,17 @@ const store = new Vuex.Store({
         store.commit('SEND_MESSAGE', ['error', error])
       })
     },
-    ADD_TEAM(team) {
+    ADD_TEAM(state, team) {
       console.log('TEAM: '+team.nome)
       service.addTeam(team)
-      .then(response => {
+      .then(_response => {
         store.commit('SEND_MESSAGE', ['success', 'Time criado com sucesso'])
         store.commit('GET_TEAMS')
       })
       .catch(error => {
         store.commit('SEND_MESSAGE', ['error', 'Erro ao criar jogador '+error])
       })
+      state.loading = false
     },
     // RESET_PLAYER(state) {
     //   let newPlayer =  { 
@@ -94,6 +96,18 @@ const store = new Vuex.Store({
     // },
     TOGGLE_TEAM_FORM(state, show) {
       state.showTeamForm = show
+    },
+
+    TEAM_ACTIVATION(state, [team, value]) {
+      service.teamActivation(team, value)
+      .then(_response => {
+        store.commit('SEND_MESSAGE', ['success', 'Time ativado/desativado com sucesso'])
+        store.commit('GET_TEAMS')
+      })
+      .catch(_error => {
+        store.commit('SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
+      })
+      state.loading = false
     }
   }, 
   actions: {
@@ -120,6 +134,12 @@ const store = new Vuex.Store({
     },
     addTeam({ commit }, team){
       commit('ADD_TEAM', team)
+    },
+    loading({ state }) {
+      state.loading = true
+    },
+    teamActivation({ commit }, [team, value]){
+      commit('TEAM_ACTIVATION', [team, value])
     }
   }
 })

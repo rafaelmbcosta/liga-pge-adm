@@ -17,6 +17,14 @@
         Close
       </v-btn>
     </v-snackbar>
+
+    <v-progress-circular
+      class="progress"
+      :size="100"
+      indeterminate
+      color="teal darken-1"
+      v-if="loading"
+    ></v-progress-circular>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Administrador </span>
@@ -33,6 +41,8 @@
     </v-toolbar>
     <v-content>
       <v-spacer></v-spacer>
+    loading: {{ loading }}
+
       <router-view/>
     </v-content>
   </v-app>
@@ -45,7 +55,7 @@ export default {
   name: 'App',
   computed: {
     ...mapGetters(['getToken']),
-    ...mapState(['snackBar'])
+    ...mapState(['snackBar', 'loading'])
   },
   methods: {
     ...mapActions(['logout', 'closeSnack'])
@@ -54,6 +64,15 @@ export default {
     return {
     }
   }
-
 }
 </script>
+
+<style scoped>
+  .progress{
+    position: fixed;
+    left: 47%;
+    top: 35%;
+    z-index: 9999;
+  }
+</style>
+
