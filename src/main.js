@@ -9,7 +9,6 @@ import store from './store/store'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'es6-promise/auto'
 
-
 new Vue({
   store,
   router,

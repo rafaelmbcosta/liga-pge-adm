@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios from '../axios'
 
 export default {
   serviceLogin (email, password) {
     console.log('Entrou no Valendo!')
-    return axios.post(process.env.CUSTOM_API_ADDRESS+'/user_token', {
+    return axios.post(process.env.VUE_APP_LOGGIN_ADDRESS, {
       auth: {
         email: email,
         password: password
@@ -11,12 +11,12 @@ export default {
     })
   },
   addTeam (team) {
-    return axios.post(process.env.CUSTOM_API_ADDRESS+'/teams/create', {
+    return axios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/create', {
       team: team
     })
   },
   teamActivation(team, value) {
-    return axios.post(process.env.CUSTOM_API_ADDRESS+'/teams/activation', {
+    return axios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/activation', {
       team: {
         id: team.id,
         active: value
@@ -24,6 +24,6 @@ export default {
     })
   },
   getTeams () {
-    return axios.get(process.env.CUSTOM_API_ADDRESS+'/teams')
+    return axios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams')
   }
 }

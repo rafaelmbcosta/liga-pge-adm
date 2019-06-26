@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import service from 'api-client'
+import mock from 'mock-client'
 import axios from 'axios'
 import router from '../router'
 
@@ -10,7 +11,7 @@ const store = new Vuex.Store({
   state: {
     url: '',
     loading: false,
-    token: null,
+    token: localStorage.token,
     messages: [],
     teams: [],
     showTeamForm: false,
@@ -31,19 +32,20 @@ const store = new Vuex.Store({
       state.messages = []
       service.serviceLogin(email, password)
       .then(response => {
+        console.log('success')
         store.commit('SEND_MESSAGE', ['success', 'Login realizado com Sucesso'])
-        state.token =  response.data.jwt
+        localStorage.setItem('token', response.data.jwt)
         router.push({ path: 'players' })
       })
       .catch(_error => {
+        console.log('error')
         store.commit('SEND_MESSAGE', ['error', 'Login Inválido'])
         state.token = null
       })
     },
     LOGOUT( state ){
       state.messages = []
-      state.token = null
-      delete axios.defaults.headers.common['Authorization']
+      localStorage.removeItem('token')
       store.commit('SEND_MESSAGE', ['success', 'Logout realizado com sucesso'])
     },
     REMOVE_MESSAGE( state, message ){
@@ -79,21 +81,6 @@ const store = new Vuex.Store({
       })
       state.loading = false
     },
-    // RESET_PLAYER(state) {
-    //   let newPlayer =  { 
-    //     id: null,
-    //     name: '',
-    //     active: false
-    //   }
-    //   state.player = JSON.parse(JSON.stringify(newPlayer))
-    //   state.playerFormTitle = 'Novo Jogador'
-    // },
-    // UPDATE_PLAYER_NAME(state, name) {
-    //   state.player.name = name
-    // },
-    // UPDATE_PLAYER_ACTIVE(state, active) {
-    //   state.player.active = active
-    // },
     TOGGLE_TEAM_FORM(state, show) {
       state.showTeamForm = show
     },

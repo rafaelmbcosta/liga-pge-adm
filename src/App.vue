@@ -37,11 +37,10 @@
         <v-btn to="/about" flat>Sobre</v-btn>
         <v-btn @click="logout" to="/logout" flat>Logout</v-btn>
       </v-toolbar-items>
-      
     </v-toolbar>
     <v-content>
+      LoginToken(getter): {{ getToken }}
       <v-spacer></v-spacer>
-    loading: {{ loading }}
 
       <router-view/>
     </v-content>
