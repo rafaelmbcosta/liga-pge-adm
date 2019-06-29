@@ -13,31 +13,32 @@ class AuthenticationError extends Error {
 
 const UserService = {
   /**
-   * Login the user and store the access token to TokenService. 
-   * 
+   * Login the user and store the access token to TokenService.
+   *
    * @returns access_token
-   * @throws AuthenticationError 
+   * @throws AuthenticationError
   **/
   login: async function(email, password) {
     const requestData = {
       method: 'post',
       url: process.env.VUE_APP_LOGGIN_ADDRESS,
-      auth: {
-        email: email,
-        password: password
+      data: {
+        auth: {
+          email: email,
+          password: password
+        }
       }
     }
-
     try {
       const response = await ApiService.customRequest(requestData)
-      
-      TokenService.saveToken(response.data.access_token)
-      TokenService.saveRefreshToken(response.data.refresh_token)
+      TokenService.saveToken(response.data.jwt)
+      TokenService.saveRefreshToken(response.data.jwt)
+      ApiService.init()
       ApiService.setHeader()
-      
-      // NOTE: We haven't covered this yet in our ApiService 
+
+      // NOTE: We haven't covered this yet in our ApiService
       //       but don't worry about this just yet - I'll come back to it later
-      ApiService.mount401Interceptor();
+      // ApiService.mount401Interceptor();
 
       return response.data.access_token
     } catch (error) {
@@ -48,7 +49,7 @@ const UserService = {
   /**
    * Refresh the access token.
   **/
-  
+
   // refreshToken: async function() {
   //   const refreshToken = TokenService.getRefreshToken()
 
@@ -80,18 +81,18 @@ const UserService = {
   // },
 
   /**
-   * Logout the current user by removing the token from storage. 
-   * 
+   * Logout the current user by removing the token from storage.
+   *
    * Will also remove `Authorization Bearer <token>` header from future requests.
   **/
   logout() {
-    // Remove the token and remove Authorization header from Api Service as well 
+    // Remove the token and remove Authorization header from Api Service as well
     TokenService.removeToken()
     TokenService.removeRefreshToken()
     ApiService.removeHeader()
-    
-    // NOTE: Again, we'll cover the 401 Interceptor a bit later. 
-    ApiService.unmount401Interceptor()
+
+    // NOTE: Again, we'll cover the 401 Interceptor a bit later.
+    // ApiService.unmount401Interceptor()
   }
 }
 

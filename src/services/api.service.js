@@ -1,17 +1,20 @@
-import axios from 'axios'
+import axios from './axios'
 import { TokenService } from '../services/storage.service'
 
 const ApiService = {
   init(baseURL) {
-    axios.defaults.baseURL = baseURL;
-  },
-
-  setHeader() {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`
+    axios.baseURL = baseURL || 'http://localhost:3000/api/v1'
   },
 
   removeHeader() {
-    axios.defaults.headers.common = {}
+    axios.headers = {}
+  },
+
+  setHeader() {
+    axios.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + TokenService.getToken()
+    }
   },
 
   get(resource) {
@@ -30,6 +33,9 @@ const ApiService = {
     return axios.delete(resource)
   },
 
+  getTeams() {
+    return this.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams')
+  },
   customRequest(data) {
     return axios(data)
   }

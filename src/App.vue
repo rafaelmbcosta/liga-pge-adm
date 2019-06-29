@@ -38,9 +38,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
-      LoginToken(getter): {{ getToken }}
       <v-spacer></v-spacer>
-
       <router-view/>
     </v-content>
   </v-app>
@@ -48,11 +46,11 @@
 <script>
 
 import { mapGetters, mapActions, mapState } from 'vuex'
+import { TokenService } from './services/storage.service'
 
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['getToken']),
     ...mapState(['snackBar', 'loading'])
   },
   methods: {
@@ -73,4 +71,3 @@ export default {
     z-index: 9999;
   }
 </style>
-

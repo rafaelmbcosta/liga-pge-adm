@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import service from 'api-client'
-import mock from 'mock-client'
 import axios from 'axios'
 import router from '../router'
+import { UserService, AuthenticationError } from '../services/user.service'
+import { TokenService } from '../services/storage.service'
+import ApiService from '../services/api.service'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,6 @@ const store = new Vuex.Store({
   state: {
     url: '',
     loading: false,
-    token: localStorage.token,
     messages: [],
     teams: [],
     showTeamForm: false,
@@ -19,30 +19,17 @@ const store = new Vuex.Store({
       show: false,
       color: '',
       text: ''
-    }
+    },
+    authenticating: false,
+    accessToken: TokenService.getToken(),
+    authenticationErrorCode: 0,
+    authenticationError: ''
   },
   getters: {
-    getToken: state => { return state.token },
-    isLoggedIn: state => { return !!state.token },
     getTeamForm: state => { return state.showTeamForm },
     getTeams: state => { return state.teams }
   },
   mutations: {
-    LOGIN(state, [ email, password ] ){
-      state.messages = []
-      service.serviceLogin(email, password)
-      .then(response => {
-        console.log('success')
-        store.commit('SEND_MESSAGE', ['success', 'Login realizado com Sucesso'])
-        localStorage.setItem('token', response.data.jwt)
-        router.push({ path: 'players' })
-      })
-      .catch(_error => {
-        console.log('error')
-        store.commit('SEND_MESSAGE', ['error', 'Login Inválido'])
-        state.token = null
-      })
-    },
     LOGOUT( state ){
       state.messages = []
       localStorage.removeItem('token')
@@ -61,7 +48,7 @@ const store = new Vuex.Store({
     },
     GET_TEAMS(state) {
       state.teams = []
-      service.getTeams()
+      ApiService.getTeams()
       .then(response =>  {
         state.teams = response.data
       })
@@ -95,14 +82,52 @@ const store = new Vuex.Store({
         store.commit('SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
       })
       state.loading = false
+    },
+    LOGIN_REQUEST(state) {
+        state.authenticating = true;
+        state.authenticationError = ''
+        state.authenticationErrorCode = 0
+    },
+
+    LOGIN_SUCCESS(state, accessToken) {
+        state.accessToken = accessToken
+        state.authenticating = false;
+    },
+
+    LOGIN_ERROR(state, {errorCode, errorMessage}) {
+        state.authenticating = false
+        state.authenticationErrorCode = errorCode
+        state.authenticationError = errorMessage
+    },
+
+    LOGOUT_SUCCESS(state) {
+        state.accessToken = ''
     }
-  }, 
+  },
   actions: {
-    login({ commit }, loginData){
-      commit('LOGIN', [loginData.email, loginData.password] )
+    async login({ commit }, loginData) {
+        commit('LOGIN_REQUEST');
+
+        try {
+            const token = await UserService.login(loginData.email, loginData.password);
+            commit('LOGIN_SUCCESS', token)
+
+            // Redirect the user to the page he first tried to visit or to the home view
+            router.push(router.history.current.query.redirect || '/');
+
+            return true
+        } catch (e) {
+            if (e instanceof AuthenticationError) {
+                commit('LOGIN_ERROR', {errorCode: e.errorCode, errorMessage: e.message})
+            }
+
+            return false
+        }
     },
     logout({ commit }) {
-      commit('LOGOUT')
+      UserService.logout()
+      commit('LOGOUT_SUCCESS')
+      router.push('/login')
     },
     removeMessage( { commit }, message) {
       commit('REMOVE_MESSAGE', message)
