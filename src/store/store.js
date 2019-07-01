@@ -30,11 +30,6 @@ const store = new Vuex.Store({
     getTeams: state => { return state.teams }
   },
   mutations: {
-    LOGOUT( state ){
-      state.messages = []
-      localStorage.removeItem('token')
-      store.commit('SEND_MESSAGE', ['success', 'Logout realizado com sucesso'])
-    },
     REMOVE_MESSAGE( state, message ){
       state.messages = state.messages.filter(function(item){
         return message !== item
@@ -90,18 +85,21 @@ const store = new Vuex.Store({
     },
 
     LOGIN_SUCCESS(state, accessToken) {
-        state.accessToken = accessToken
-        state.authenticating = false;
+      store.commit('SEND_MESSAGE', ['success', 'Login realizado com sucesso'])
+      state.accessToken = accessToken
+      state.authenticating = false;
     },
 
     LOGIN_ERROR(state, {errorCode, errorMessage}) {
         state.authenticating = false
         state.authenticationErrorCode = errorCode
         state.authenticationError = errorMessage
+        store.commit('SEND_MESSAGE', ['error', 'Erro ao fazer login: '+errorMessage])
     },
 
     LOGOUT_SUCCESS(state) {
-        state.accessToken = ''
+      store.commit('SEND_MESSAGE', ['success', 'Logout realizado com sucesso'])
+      state.accessToken = ''
     }
   },
   actions: {
