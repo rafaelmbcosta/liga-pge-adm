@@ -36,6 +36,15 @@ const ApiService = {
   getTeams() {
     return this.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams')
   },
+
+  addTeam(team) {
+    return this.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/add_team', team)
+  },
+
+  toggleTeam(data) {
+    return this.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/toggle_team', data)
+  },
+
   customRequest(data) {
     return axios(data)
   }
