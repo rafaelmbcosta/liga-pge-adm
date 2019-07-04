@@ -32,29 +32,36 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn to="/players" flat>Jogadores</v-btn>
-        <v-btn to="/about" flat>Sobre</v-btn>
+        <!-- <v-btn to="/players" flat>Jogadores</v-btn> -->
+        <!-- <v-btn to="/about" flat>Sobre</v-btn> -->
         <v-btn @click="logout" to="/logout" flat>Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <v-spacer></v-spacer>
-      <router-view/>
+      <!-- <router-view/> -->
     </v-content>
   </v-app>
 </template>
 <script>
 
 import { mapGetters, mapActions, mapState } from 'vuex'
-import { TokenService } from './services/storage.service'
 
 export default {
   name: 'App',
   computed: {
-    ...mapState(['snackBar', 'loading'])
+    ...mapState('util', {
+      snackBar: 'snackBar',
+      loading: 'loading'
+    })
   },
   methods: {
-    ...mapActions(['logout', 'closeSnack'])
+    ...mapActions('auth', {
+      logout: 'logout'
+    }),
+    ...mapActions('util', {
+      closeSnack: 'closeSnack'
+    })
   },
   data() {
     return {
