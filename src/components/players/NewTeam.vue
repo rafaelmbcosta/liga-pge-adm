@@ -97,13 +97,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'hideNewTeam'
-    ]),
+    ...mapActions('team', ['hideNewTeam']),
     validate(){
       if (this.$refs.form.validate()) {
         console.log('partiu validate: '+this.selectedTeam.nome)
-        this.$store.dispatch('addTeam', this.selectedTeam)
+        this.$store.dispatch('team/addTeam', this.selectedTeam)
       }
     },
 
@@ -122,7 +120,7 @@ export default {
              this.teams = response.data
            })
            .catch(error => {
-            this.$store.dispatch('sendMessage', ['error', error])
+            this.$store.dispatch('team/sendMessage', ['error', error])
           })
       this.loading = false
     },

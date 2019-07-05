@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     login () {
-      this.$store.dispatch('login', this.loginData)
+      this.$store.dispatch('auth/login', this.loginData)
     }
   },
   props: {
