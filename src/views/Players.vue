@@ -20,8 +20,8 @@
 
 <script>
 
-import TeamList from './TeamList'
-import NewTeam from './NewTeam'
+import TeamList from '@/components/players/TeamList'
+import NewTeam from '@/components/players/NewTeam'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -37,4 +37,3 @@ export default {
   }
 }
 </script>
-

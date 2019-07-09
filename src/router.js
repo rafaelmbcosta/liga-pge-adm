@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from './components/Login.vue'
-import Main from './components/players/Main.vue'
+import Login from './views/Login.vue'
+import Main from './views/Players.vue'
 
 Vue.use(Router)
 
@@ -25,5 +25,5 @@ let router = new Router({
     }
   ]
 })
- 
+
 export default router
