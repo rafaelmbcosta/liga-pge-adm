@@ -1,3 +1,7 @@
+import customAxios from '@/auth/axios-auth'
+import service from '@/service/index'
+import util from './util'
+
 const state = {
   teams: [],
   showTeamForm: false,
@@ -10,14 +14,14 @@ const getters = {
 
 const mutations = {
   GET_TEAMS(state) {
-    // state.teams = []
-    // ApiService.getTeams()
-    // .then(response =>  {
-    //   state.teams = response.data
-    // })
-    // .catch(error => {
-    //   store.commit('SEND_MESSAGE', ['error', error])
-    // })
+    state.teams = []
+    service.getTeams()
+    .then(response =>  {
+      state.teams = response.data
+    })
+    .catch(error => {
+      util.commit('SEND_MESSAGE', ['error', error])
+    })
   },
   ADD_TEAM(state, team) {
     // console.log('TEAM: '+team.nome)
@@ -50,7 +54,14 @@ const mutations = {
 
 const actions = {
   loadTeams({ commit }) {
-    commit('GET_TEAMS')
+    state.teams = []
+    service.getTeams()
+    .then(response =>  {
+      state.teams = response.data
+    })
+    .catch(error => {
+      // util.commit('SEND_MESSAGE', ['error', error])
+    })
   },
   addTeam({ commit }, team){
     commit('ADD_TEAM', team)

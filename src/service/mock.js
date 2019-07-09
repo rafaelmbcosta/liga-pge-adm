@@ -1,6 +1,6 @@
 //reference: https://tahazsh.com/use-mock-data-in-vue
 
-import teams from './data/teams.json'
+import teams from './mock/teams.json'
 import store from '@/store/store.js'
 
 const fetch = (mockData, time = 0) => {
@@ -24,7 +24,7 @@ export default {
     let params = { name: team.nome,
                    player_name: team.nome_cartola,
                    url_escudo_png: team.url_escudo_png,
-                   active: true 
+                   active: true
     }
     store.state.teams.push(params)
     return fetch({ 'data': { "sucesso": true } }, 500)
