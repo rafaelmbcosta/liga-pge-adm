@@ -9,6 +9,7 @@ const state = {
 
 const getters = {
   getToken: state => { return state.token },
+  isLoggedIn: state => { return !!state.token }
 }
 
 const mutations = {
@@ -36,6 +37,7 @@ const actions = {
     state.token = null
     customAxios.defaults.headers.common["Authorization"] = null
     store.commit('util/SEND_MESSAGE', ['success', 'Time ativado/desativado com sucesso'])
+    router.push('/login')
   }
 }
 

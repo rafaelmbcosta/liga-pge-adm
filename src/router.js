@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue'
 import Main from './views/Players.vue'
+import store from './store'
 
 Vue.use(Router)
 
@@ -10,18 +11,24 @@ let router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
       path: '/',
       name: 'players',
       component: Main,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-      // meta: {
-      //   public: true,  // Allow access to even if not logged in
-      //   onlyWhenLoggedOut: true
-      // }
+      beforeEnter (_to, _from, next){
+        console.log('before verification: '+store.getters['auth/isLoggedIn'])
+        if (store.getters['auth/isLoggedIn']){
+          console.log('before ok')
+          next()
+        } else {
+          console.log('before: else')
+          next('/login')
+        }
+      }
     }
   ]
 })

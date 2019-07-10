@@ -32,10 +32,18 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn to="/login" flat>Login</v-btn>
-        <v-btn to="/" flat>Jogadores</v-btn>
-        <v-btn to="/about" flat>Sobre</v-btn>
-        <v-btn @click="logout" to="/logout" flat>Logout</v-btn>
+        <v-btn to="/" v-if="isLoggedIn" flat>Jogadores</v-btn>
+        <v-btn
+          @click="logout"
+          to="/logout"
+          v-if="isLoggedIn"
+          flat
+        >
+          <v-icon>
+            logout
+          </v-icon>
+
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -51,7 +59,8 @@ import { mapGetters, mapActions, mapState } from 'vuex'
 export default {
   name: 'App',
   computed: {
-    ...mapState('util', ['snackBar', 'loading'])
+    ...mapState('util', ['snackBar', 'loading']),
+    ...mapGetters('auth', ['isLoggedIn'])
   },
   methods: {
     ...mapActions('auth', ['logout']),
