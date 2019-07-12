@@ -15,14 +15,14 @@ export default {
   //     team: team
   //   })
   // },
-  // teamActivation(team, value) {
-  //   return axios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/activation', {
-  //     team: {
-  //       id: team.id,
-  //       active: value
-  //     }
-  //   })
-  // },
+  teamActivation(team, value) {
+    return customAxios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/activation', {
+      team: {
+        id: team.id,
+        active: value
+      }
+    })
+  },
   getTeams () {
     console.log('ok, chegou no get teams do service')
     console.log(customAxios.defaults)

@@ -6,7 +6,8 @@
       :color="snackBar.color"
       :timeout="6000"
       :vertical='true'
-      :top="true"
+      :bottom="true"
+      :left="true"
     >
       {{ snackBar.text }}
       <v-btn

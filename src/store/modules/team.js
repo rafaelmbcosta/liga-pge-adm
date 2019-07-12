@@ -40,15 +40,16 @@ const mutations = {
   },
 
   TEAM_ACTIVATION(state, [team, value]) {
-    // service.teamActivation(team, value)
-    // .then(_response => {
-    //   store.commit('SEND_MESSAGE', ['success', 'Time ativado/desativado com sucesso'])
-    //   store.commit('GET_TEAMS')
-    // })
-    // .catch(_error => {
-    //   store.commit('SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
-    // })
-    // state.loading = false
+    service.teamActivation(team, value)
+
+    .then(_response => {
+      util.commit('SEND_MESSAGE', ['success', 'Time ativado/desativado com sucesso'])
+      store.commit('GET_TEAMS')
+    })
+    .catch(_error => {
+      store.commit('SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
+    })
+    util.state.loading = false
   },
 }
 
