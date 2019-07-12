@@ -43,8 +43,8 @@ export default {
   props: ["team", "first", "edit"],
   watch: {
     'team.active': function(val) {
-      this.$store.dispatch('loading')
-      this.$store.dispatch('teamActivation', [this.team, val])
+      this.$store.dispatch('util/loading')
+      this.$store.dispatch('team/teamActivation', [this.team, val])
     }
   }
 }
