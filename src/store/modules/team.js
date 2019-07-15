@@ -47,7 +47,7 @@ const mutations = {
       store.commit('GET_TEAMS')
     })
     .catch(_error => {
-      store.commit('SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
+      util.commit('SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
     })
     util.state.loading = false
   },
