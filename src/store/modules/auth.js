@@ -1,7 +1,8 @@
-import axios from "axios";
 import customAxios from "@/auth/axios-auth"
 import store from '../index'
 import router from '@/router'
+import mockService from '@/service/mock'
+import originalApiService from '@/service/originalApiService'
 
 const state = {
   token: localStorage.getItem('token')
@@ -19,17 +20,22 @@ const mutations = {
     customAxios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`
     store.commit('util/SEND_MESSAGE', ['success', 'Login efetuado com sucesso'])
     router.push('/')
+  },
+
+  LOGIN_FAILED(state, error) {
+    store.commit('util/SEND_MESSAGE', ['error', error])
   }
 }
 
 const actions = {
   login({ commit }, loginData) {
-    axios.post(process.env.VUE_APP_LOGIN_ADDRESS, { auth: { email: loginData.email, password: loginData.password } })
-         .then(response => {
-           commit('LOGIN_SUCCESS', response.data.jwt)
-           console.log(response)
-         })
-         .catch(error => console.log(error))
+    mockService.login(loginData.email, loginData.password)
+    .then(response => {
+      commit('LOGIN_SUCCESS', response.data.jwt)
+    })
+    .catch(error => {
+      commit('LOGIN_FAILED', error)
+    })
   },
 
   logout({ state }) {

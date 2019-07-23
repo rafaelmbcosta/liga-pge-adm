@@ -15,7 +15,7 @@
         <v-autocomplete
           v-model="selectedTeam"
           :loading="loading"
-          :items="teams"
+          :items="searchTeams"
           :search-input.sync="autoCompleteInput"
           cache-items
           :rules="autocompleteRules"
@@ -75,7 +75,7 @@
 
 <script>
 import axios from 'axios'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import TeamItem from './TeamItem'
 
 export default {
@@ -86,7 +86,6 @@ export default {
       autocompleteRules: [
         v => !!v || 'Time é necessário'
       ],
-      teams: [],
       valid: false,
       loading: false
     }
@@ -96,6 +95,9 @@ export default {
       val && val !== this.selectedTeam && this.getAPITeams(val)
     }
   },
+  computed: {
+    ...mapState('team', ['searchTeams'])
+  },
   methods: {
     ...mapActions('team', ['hideNewTeam']),
     validate(){
@@ -104,7 +106,6 @@ export default {
         this.$store.dispatch('team/addTeam', this.selectedTeam)
       }
     },
-
     cleanFields(){
       this.autoCompleteInput = null
       this.selectedTeam = null
@@ -114,16 +115,9 @@ export default {
     },
     getAPITeams(val){
       this.loading = true
-      let server = process.env.VUE_APP_OFFICIAL_API_ADDRESS
-      axios.get(server+'times?q='+val)
-           .then(response => {
-             this.teams = response.data
-           })
-           .catch(error => {
-            this.$store.dispatch('team/sendMessage', ['error', error])
-          })
+      this.$store.dispatch('team/getAPITeams', this.selectedTeam)
       this.loading = false
-    },
+    }
   },
   components: {
     TeamItem

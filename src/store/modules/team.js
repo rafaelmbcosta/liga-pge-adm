@@ -1,10 +1,13 @@
 import customAxios from '@/auth/axios-auth'
 import service from '@/service/index'
+import originalApiService from '@/service/originalApiService'
+import mockService from '@/service/mock'
 import util from './util'
 
 const state = {
   teams: [],
   showTeamForm: false,
+  searchTeams: []
 }
 
 const getters = {
@@ -39,9 +42,18 @@ const mutations = {
     state.showTeamForm = show
   },
 
+  GET_ORIGINAL_TEAMS(state, value) {
+    mockService.getAPITeams(value)
+      .then(response => {
+        state.searchTeams = response.data
+      })
+      .catch(error => {
+        util.commit('SEND_MESSAGE', ['error', error])
+    })
+  },
+
   TEAM_ACTIVATION(state, [team, value]) {
     service.teamActivation(team, value)
-
     .then(_response => {
       util.commit('SEND_MESSAGE', ['success', 'Time ativado/desativado com sucesso'])
       store.commit('GET_TEAMS')
@@ -56,12 +68,12 @@ const mutations = {
 const actions = {
   loadTeams({ commit }) {
     state.teams = []
-    service.getTeams()
+    mockService.getTeams()
     .then(response =>  {
       state.teams = response.data
     })
     .catch(error => {
-      // util.commit('SEND_MESSAGE', ['error', error])
+      util.commit('SEND_MESSAGE', ['error', error])
     })
   },
   addTeam({ commit }, team){
@@ -69,6 +81,9 @@ const actions = {
   },
   teamActivation({ commit }, [team, value]){
     commit('TEAM_ACTIVATION', [team, value])
+  },
+  getAPITeams({ commit }, value) {
+    commit('GET_ORIGINAL_TEAMS', value)
   }
 }
 
