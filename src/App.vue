@@ -1,39 +1,84 @@
 <template>
   <v-app>
+    <v-snackbar
+      v-if="snackBar.show"
+      v-model="snackBar"
+      :color="snackBar.color"
+      :timeout="6000"
+      :vertical='true'
+      :bottom="true"
+      :left="true"
+    >
+      {{ snackBar.text }}
+      <v-btn
+        dark
+        flat
+        @click="closeSnack"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+
+    <v-progress-circular
+      class="progress"
+      :size="100"
+      indeterminate
+      color="teal darken-1"
+      v-if="loading"
+    ></v-progress-circular>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Administrador </span>
-        <span class="font-weight-light">LIGA PGE</span>
+        <span class="font-weight-light orange--text">LIGA PGE</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn to="/" flat>Login</v-btn>
-        <v-btn to="/seasons" flat>Seasons</v-btn>
-        <v-btn to="/season-settings" flat>Stuff</v-btn>
-        <v-btn to="/about" flat>About</v-btn>
-        <v-btn @click="logout()" to="/logout" flat>Logout</v-btn>
+        <v-btn to="/" v-if="isLoggedIn" flat>Jogadores</v-btn>
+        <v-btn
+          @click="logout"
+          to="/logout"
+          v-if="isLoggedIn"
+          flat
+        >
+          <v-icon>
+            logout
+          </v-icon>
+
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <v-spacer></v-spacer>
-      {{ getMessages }}
       <router-view/>
     </v-content>
   </v-app>
 </template>
 <script>
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['getToken', 'getMessages'])
+    ...mapState('util', ['snackBar', 'loading']),
+    ...mapGetters('auth', ['isLoggedIn'])
   },
   methods: {
-    logout () {
-      LocalStorage.token = null
+    ...mapActions('auth', ['logout']),
+    ...mapActions('util', ['closeSnack'])
+  },
+  data() {
+    return {
     }
   }
 }
 </script>
+
+<style scoped>
+  .progress{
+    position: fixed;
+    left: 47%;
+    top: 35%;
+    z-index: 9999;
+  }
+</style>

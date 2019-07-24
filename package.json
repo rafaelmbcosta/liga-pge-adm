@@ -6,33 +6,43 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "es6-promise": "^4.2.6",
+    "axios": "^0.19.0",
+    "es6-promise": "^4.2.8",
+    "jest": "^24.8.0",
+    "npm": "^6.10.1",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
     "vue-localstorage": "^0.6.2",
-    "vue-router": "^3.0.6",
-    "vuetify": "^1.5.13",
-    "vuex": "^3.1.0",
+    "vue-router": "^3.0.7",
+    "vuetify": "^1.5.16",
+    "vuex": "^3.1.1",
     "yarn-upgrade-all": "^0.5.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.6.0",
-    "@vue/cli-plugin-eslint": "^3.6.0",
-    "@vue/cli-plugin-unit-mocha": "^3.6.0",
-    "@vue/cli-service": "^3.6.0",
+    "@babel/preset-env": "^7.5.4",
+    "@vue/cli-plugin-babel": "^3.9.2",
+    "@vue/cli-plugin-eslint": "^3.9.2",
+    "@vue/cli-plugin-unit-mocha": "^3.9.0",
+    "@vue/cli-service": "^3.9.2",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.29",
-    "babel-eslint": "^10.0.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.2",
+    "babel-jest": "^24.8.0",
+    "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint": "^6.0.1",
+    "eslint-plugin-vue": "^5.2.3",
+    "jest-vue-preprocessor": "^1.5.0",
+    "jsdom": "^15.1.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue-cli-plugin-vuetify": "^0.5.0",
+    "vue-jest": "^3.0.4",
+    "vue-server-renderer": "^2.6.10",
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.2.2"
   },
@@ -60,5 +70,16 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
+  }
 }

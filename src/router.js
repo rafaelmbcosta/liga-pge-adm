@@ -1,34 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from './components/Login.vue'
-import Season from './components/Season.vue'
-import SeasonSettings from './components/SeasonSettings.vue'
+import Login from './views/Login.vue'
+import Main from './views/Players.vue'
+import store from './store'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: Login
     },
     {
-      path: '/seasons',
-      name: 'seasons',
-      component: Season
-    },
-    {
-      path: '/season-settings',
-      name: 'season-settings',
-      component: SeasonSettings
-    },
-    {
-      path: '/logout',
-      name: 'logout',
-      component: Login
+      path: '/',
+      name: 'players',
+      component: Main,
+      beforeEnter (_to, _from, next){
+        console.log('before verification: '+store.getters['auth/isLoggedIn'])
+        if (store.getters['auth/isLoggedIn']){
+          console.log('before ok')
+          next()
+        } else {
+          console.log('before: else')
+          next('/login')
+        }
+      }
     }
   ]
 })
+
+export default router
