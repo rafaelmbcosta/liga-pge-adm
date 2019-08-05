@@ -26,8 +26,8 @@ const actions = {
   hideNewTeam({ commit }) {
     commit('TOGGLE_TEAM_FORM', false)
   },
-  loading({ state }) {
-    state.loading = true
+  loading({ state }, value) {
+    state.loading = value
   }
 }
 
