@@ -1,7 +1,6 @@
 import customAxios from "@/auth/axios-auth"
 import store from '../index'
 import router from '@/router'
-import mockService from '@/service/mock'
 import originalApiService from '@/service/originalApiService'
 
 const state = {
@@ -29,7 +28,7 @@ const mutations = {
 
 const actions = {
   login({ commit }, loginData) {
-    mockService.login(loginData.email, loginData.password)
+    originalApiService.login(loginData.email, loginData.password)
     .then(response => {
       commit('LOGIN_SUCCESS', response.data.jwt)
     })

@@ -10,7 +10,17 @@ export default {
     })
   },
   getTeams () {
-    console.log(customAxios.defaults)
     return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams')
+  },
+  addTeam(team){
+    return customAxios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams', {
+      team: { 
+        name: team.nome,
+        slug: team.slug,
+        url_escudo_png: team.url_escudo_png,
+        player_name: team.nome_cartola,
+        id_tag: team.time_id
+      }
+    })
   }
 }
