@@ -41,7 +41,7 @@ const actions = {
     localStorage.removeItem('token')
     state.token = null
     customAxios.defaults.headers.common["Authorization"] = null
-    store.commit('util/SEND_MESSAGE', ['success', 'Time ativado/desativado com sucesso'])
+    store.commit('util/SEND_MESSAGE', ['success', 'logout realizado com sucesso'])
     router.push('/login')
   }
 }

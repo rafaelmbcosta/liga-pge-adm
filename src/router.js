@@ -20,12 +20,9 @@ let router = new Router({
       name: 'players',
       component: Main,
       beforeEnter (_to, _from, next){
-        console.log('before verification: '+store.getters['auth/isLoggedIn'])
         if (store.getters['auth/isLoggedIn']){
-          console.log('before ok')
           next()
         } else {
-          console.log('before: else')
           next('/login')
         }
       }
