@@ -1,5 +1,4 @@
 import service from '@/service/index'
-import originalApiService from '@/service/originalApiService'
 import store from '../index'
 
 const state = {
@@ -29,7 +28,7 @@ const mutations = {
     state.showTeamForm = show
   },
   GET_ORIGINAL_TEAMS(state, value) {
-    originalApiService.getAPITeams(value)
+    service.getAPITeams(value)
       .then(response => {
         state.searchTeams = response.data
       })
