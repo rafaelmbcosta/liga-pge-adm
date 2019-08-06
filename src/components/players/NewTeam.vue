@@ -114,7 +114,7 @@ export default {
     },
     getAPITeams(val){
       this.loading = true
-      this.$store.dispatch('team/getAPITeams', this.selectedTeam)
+      this.$store.dispatch('team/getAPITeams', this.autoCompleteInput)
       this.loading = false
     }
   },
