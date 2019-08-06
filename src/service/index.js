@@ -12,6 +12,9 @@ export default {
   getTeams () {
     return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams')
   },
+  getAPITeams(query){
+    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/find_team?[search]q='+query)
+  },
   addTeam(team){
     return customAxios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams', {
       team: { 
