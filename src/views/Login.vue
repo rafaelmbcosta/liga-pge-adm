@@ -25,6 +25,7 @@
                     v-model="loginData.password"
                     name="password"
                     label="Password"
+                    v-on:keyup.enter="login"
                     type="password" color="orange darken-2">
                   </v-text-field>
                 </v-form>
