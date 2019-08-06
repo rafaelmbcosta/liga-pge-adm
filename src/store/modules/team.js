@@ -1,7 +1,5 @@
-import customAxios from '@/auth/axios-auth'
 import service from '@/service/index'
 import originalApiService from '@/service/originalApiService'
-import mockService from '@/service/mock'
 import store from '../index'
 
 const state = {
@@ -17,7 +15,6 @@ const getters = {
 
 const mutations = {
   ADD_TEAM(state, team) {
-    console.log('TEAM: '+team)
     service.addTeam(team)
     .then(_response => {
       store.commit('util/SEND_MESSAGE', ['success', 'Time criado com sucesso'])
@@ -31,7 +28,6 @@ const mutations = {
   TOGGLE_TEAM_FORM(state, show) {
     state.showTeamForm = show
   },
-
   GET_ORIGINAL_TEAMS(state, value) {
     originalApiService.getAPITeams(value)
       .then(response => {
@@ -51,8 +47,6 @@ const mutations = {
     .catch(_error => {
      store.commit('util/SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
     })
-    console.log('pos then catch')
-    // util.state.loading = false
   },
 }
 

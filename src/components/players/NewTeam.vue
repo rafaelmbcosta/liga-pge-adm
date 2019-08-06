@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+
 import { mapActions, mapState } from 'vuex'
 import TeamItem from './TeamItem'
 
@@ -102,7 +102,6 @@ export default {
     ...mapActions('team', ['hideNewTeam']),
     validate(){
       if (this.$refs.form.validate()) {
-        console.log('partiu validate: '+this.selectedTeam.nome)
         this.$store.dispatch('team/addTeam', this.selectedTeam)
       }
     },
