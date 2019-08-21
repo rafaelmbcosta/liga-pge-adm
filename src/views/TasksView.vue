@@ -1,0 +1,9 @@
+<template>
+  <Tasks />
+</template>
+
+<script>
+export default {
+  
+}
+</script>

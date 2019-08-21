@@ -26,6 +26,18 @@ let router = new Router({
           next('/login')
         }
       }
+    },
+    { // This is ugly, gotta find a better way
+      path: '/',
+      name: 'tasks',
+      component: Tasks,
+      beforeEnter (_to, _from, next){
+        if (store.getters['auth/isLoggedIn']){
+          next()
+        } else {
+          next('/login')
+        }
+      }
     }
   ]
 })
