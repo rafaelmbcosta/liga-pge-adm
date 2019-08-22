@@ -1,6 +1,9 @@
 <template>
-  <Tasks />
+  <div>
+    logs
+  </div>
 </template>
+
 
 <script>
 export default {

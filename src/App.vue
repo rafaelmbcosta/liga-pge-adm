@@ -34,6 +34,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn to="/" v-if="isLoggedIn" flat>Jogadores</v-btn>
+        <v-btn to="/tasks" v-if="isLoggedIn" flat>Rotinas</v-btn>
         <v-btn
           @click="logout"
           to="/logout"
