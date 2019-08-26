@@ -1,7 +1,14 @@
 <template>
-  <v-layout row justify-center>
-    <TaskItem v-for="(task, index) in tasks" :task="task" :key="index" xs3/>
-  </v-layout>
+  <v-row justify="center">
+    <v-col cols="10" justify-self="center" >
+      <v-row
+        justify="space-between"
+        align="top"
+      >
+        <TaskItem v-for="(task, index) in tasks" :task="task" :key="index" xs3/>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -27,7 +34,7 @@ export default {
             'Calcula os resultados dos confrontos',
             'Salva as cartoletas',
             'Calcula o turno / campeonato',
-            'Todas as listas'
+            'Atualiza Todas as listas'
           ],
           action: 'round_finished'
         },

@@ -8,12 +8,18 @@ import Vuetify from 'vuetify'
 import store from './store'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'es6-promise/auto'
+import vuetify from './plugins/vuetify';
+
+Vue.filter('capitalize', function (value) {
+  return value.toUpperCase()
+})
 
 new Vue({
   store,
   router,
   axios,
   localStorage,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
 
