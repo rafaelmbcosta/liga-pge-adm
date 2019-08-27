@@ -12,7 +12,7 @@
       {{ snackBar.text }}
       <v-btn
         dark
-        flat
+        text
         @click="closeSnack"
       >
         Close

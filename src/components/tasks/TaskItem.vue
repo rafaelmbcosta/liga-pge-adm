@@ -16,28 +16,29 @@
       </v-card-text>
       <v-card-actions>
         <v-btn 
-          fluid 
           width="100%"
-          v-bind:disabled="loading"
-          color="orange lighten-1"
-          @click="loading = true"
+          dark
+          :disabled="task.loading"
+          color="orange darken-1"
+          @click="runTask(task)"
         >
-          {{ loading ? 'AGUARDE' : 'EXECUTAR' }}
+          {{ buttonText }}
         </v-btn> 
       </v-card-actions>
     </v-card>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
-  data(){
-    return{
-      loading: false
-    }
-  },
   methods: {
-    
+    ...mapActions('tasks', ['runTask'])
+  },
+  computed: {
+    buttonText() {
+      return this.task.loading ? 'AGUARDE' : 'EXECUTAR'
+    }
   },
   props: ['task']
 }
