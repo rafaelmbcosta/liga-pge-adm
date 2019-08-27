@@ -1,7 +1,6 @@
 <template>
   <div>
     <TaskList />
-    <Logs />
   </div>
 </template>
 
