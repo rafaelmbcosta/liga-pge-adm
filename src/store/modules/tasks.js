@@ -42,23 +42,19 @@ const getters = {
 
 const mutations = {
   SELECT_TASK(state, task){
-    console.log('netrou no select task: '+task)
     task.loading = true 
     return task
   },
   TOGGLE_LOADING(state, [task, value]) {
-    console.log('netrou no toggle loading')
     task.loading = value
 
   },
   RUN_TASK(state, task){
-    console.log('entrou na mutation run')
     let url = {
       'closed_market': '/closed_market_routines',
       'round_finished': '/round_finished_routines',
       'currencies': '/currencies/rerun'
     }
-    console.log(url[task.action])
     service.runTask(url[task.action])
       .then(_response => {
         store.commit('util/SEND_MESSAGE', ['success', 'Rotina executada com sucesso'])
@@ -71,7 +67,6 @@ const mutations = {
 
 const actions = {
   runTask({ commit }, task) {
-    console.log('chegou run task')
     commit('TOGGLE_LOADING', [task, true])
     commit('RUN_TASK', task)
     commit('TOGGLE_LOADING', [task, false])

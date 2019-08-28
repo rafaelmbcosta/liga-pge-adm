@@ -54,7 +54,9 @@
           </template>
         </v-autocomplete>
         <br/>
-        <v-btn dark
+        <v-btn
+          class="mr-1"
+          dark
           :disabled="!valid"
           color="teal lighten-1"
           @click="validate"
