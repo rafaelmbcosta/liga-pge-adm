@@ -17,7 +17,7 @@
       <v-card-actions>
         <v-btn 
           width="100%"
-          dark
+          :dark="!task.loading"
           :disabled="task.loading"
           color="orange darken-1"
           @click="runTask(task)"

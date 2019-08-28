@@ -1,4 +1,5 @@
 import service from '@/service/index'
+import store from '../index'
 
 const state = {
   tasks: [
@@ -53,16 +54,17 @@ const mutations = {
   RUN_TASK(state, task){
     console.log('entrou na mutation run')
     let url = {
-      'closed_market': '/api/v1/closed_market_routines',
-      'round_finished': '/api/v1/round_finished_routines',
-      'currencies': '/api/v1/currencies/rerun'
+      'closed_market': '/closed_market_routines',
+      'round_finished': '/round_finished_routines',
+      'currencies': '/currencies/rerun'
     }
     console.log(url[task.action])
     service.runTask(url[task.action])
       .then(_response => {
+        store.commit('util/SEND_MESSAGE', ['success', 'Rotina executada com sucesso'])
       })
       .catch(error => {
-        
+        store.commit('util/SEND_MESSAGE', ['error', 'Erro ao executar rotina '+error])
       })
   }
 }
