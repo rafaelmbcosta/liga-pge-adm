@@ -25,5 +25,8 @@ export default {
         id_tag: team.time_id
       }
     })
+  },
+  runTask(url){
+    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+url)
   }
 }

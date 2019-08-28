@@ -105,6 +105,9 @@ export default {
         this.$store.dispatch('team/addTeam', this.selectedTeam)
       }
     },
+    hideNewTeam(){
+      this.$store.commit('team/TOGGLE_TEAM_FORM', false)
+    },
     cleanFields(){
       this.autoCompleteInput = null
       this.selectedTeam = null
