@@ -2,6 +2,7 @@
 
 import teams from './data/teams.json'
 import store from '@/store/store.js'
+import progress from './data/progress.json'
 
 const fetch = (mockData, time = 0) => {
   return new Promise((resolve) => {
@@ -20,7 +21,6 @@ export default {
     return fetch({ 'data': teams }, 500)
   },
   addTeam(team) {
-    console.log('dentro do mock: '+team.nome)
     let params = { name: team.nome,
                    player_name: team.nome_cartola,
                    url_escudo_png: team.url_escudo_png,
@@ -31,9 +31,12 @@ export default {
   },
   serviceLogin (email, password) {
     if (email == 'admin@gmail.com' && password == '123456'){
-      return fetch({ 'data': { 'jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' }})
+      return fetch({'data': {'jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'}})
     } else {
       return Promise.reject('Login Inválido');
     }
+  },
+  getProgress(){
+    return fetch({ 'data': progress }, 2000)
   }
 }

@@ -10,7 +10,7 @@
         <v-list-tile-sub-title>{{ team.player_name }}</v-list-tile-sub-title>
       </v-list-tile-content>
       <v-list-tile-action>
-        <v-switch 
+        <v-switch
           v-bind:disabled="loading"
           v-if = "edit"
           v-model="team.active"
@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
   computed: {
