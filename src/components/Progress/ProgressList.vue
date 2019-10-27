@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import service from '@/service/'
+import service from '@/service/mock'
 import ProgressItem from './ProgressItem'
 export default {
   created () {
@@ -47,7 +47,7 @@ export default {
       this.loading = true
       service.getProgress()
         .then(response => {
-          this.rounds = response.data
+          this.rounds = response.data.progress
         })
         .catch(error => {
           this.$store.commit('util/SEND_MESSAGE', ['error', 'Erro ao executar rotina ' + error])
