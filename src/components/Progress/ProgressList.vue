@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import service from '@/service/mock'
+import service from '@/service/'
 import ProgressItem from './ProgressItem'
 export default {
   created () {
