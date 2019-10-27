@@ -1,7 +1,7 @@
-import customAxios from "@/auth/axios-auth"
+import customAxios from '@/auth/axios-auth'
 import store from '../index'
 import router from '@/router'
-import originalApiService from '@/service/originalApiService'
+import originalApiService from '@/service/'
 
 const state = {
   token: localStorage.getItem('token')
@@ -13,34 +13,34 @@ const getters = {
 }
 
 const mutations = {
-  LOGIN_SUCCESS(state, token) {
+  LOGIN_SUCCESS (state, token) {
     state.token = token
     localStorage.setItem('token', token)
-    customAxios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`
+    customAxios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`
     store.commit('util/SEND_MESSAGE', ['success', 'Login efetuado com sucesso'])
     router.push('/')
   },
 
-  LOGIN_FAILED(state, error) {
+  LOGIN_FAILED (state, error) {
     store.commit('util/SEND_MESSAGE', ['error', error])
   }
 }
 
 const actions = {
-  login({ commit }, loginData) {
+  login ({ commit }, loginData) {
     originalApiService.login(loginData.email, loginData.password)
-    .then(response => {
-      commit('LOGIN_SUCCESS', response.data.jwt)
-    })
-    .catch(error => {
-      commit('LOGIN_FAILED', error)
-    })
+      .then(response => {
+        commit('LOGIN_SUCCESS', response.data.jwt)
+      })
+      .catch(error => {
+        commit('LOGIN_FAILED', error)
+      })
   },
 
-  logout({ state }) {
+  logout ({ state }) {
     localStorage.removeItem('token')
     state.token = null
-    customAxios.defaults.headers.common["Authorization"] = null
+    customAxios.defaults.headers.common['Authorization'] = null
     store.commit('util/SEND_MESSAGE', ['success', 'logout realizado com sucesso'])
     router.push('/login')
   }

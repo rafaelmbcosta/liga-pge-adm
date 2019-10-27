@@ -27,7 +27,7 @@ let router = new Router({
       name: 'tasks',
       component: TasksLog,
       meta: { requiresAuth: true }
-    },
+    }
   ]
 })
 

@@ -8,7 +8,7 @@ const state = {
 }
 
 const mutations = {
-  SEND_MESSAGE(state, [type, text] ) {
+  SEND_MESSAGE (state, [type, text]) {
     let color = ''
     if (type === 'error') { color = 'red lighten-1' }
     if (type === 'success') { color = 'teal lighten-1' }
@@ -17,16 +17,16 @@ const mutations = {
 }
 
 const actions = {
-  sendMessage( { commit }, messageArray ) {
+  sendMessage ({ commit }, messageArray) {
     commit('SEND_MESSAGE', messageArray)
   },
-  closeSnack({ state }) {
+  closeSnack ({ state }) {
     state.snackBar.show = false
   },
-  hideNewTeam({ commit }) {
+  hideNewTeam ({ commit }) {
     commit('TOGGLE_TEAM_FORM', false)
   },
-  loading({ state }, value) {
+  loading ({ state }, value) {
     state.loading = value
   }
 }

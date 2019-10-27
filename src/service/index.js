@@ -1,8 +1,8 @@
 import customAxios from '@/auth/axios-auth'
 
 export default {
-  teamActivation(team, value) {
-    return customAxios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/activation', {
+  teamActivation (team, value) {
+    return customAxios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS + '/teams/activation', {
       team: {
         id: team.id,
         active: value
@@ -10,14 +10,14 @@ export default {
     })
   },
   getTeams () {
-    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams')
+    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS + '/teams')
   },
-  getAPITeams(query){
-    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams/find_team?[search]q='+query)
+  getAPITeams (query) {
+    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS + '/teams/find_team?[search]q=' + query)
   },
-  addTeam(team){
-    return customAxios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS+'/teams', {
-      team: { 
+  addTeam (team) {
+    return customAxios.post(process.env.VUE_APP_CUSTOM_API_ADDRESS + '/teams', {
+      team: {
         name: team.nome,
         slug: team.slug,
         url_escudo_png: team.url_escudo_png,
@@ -26,7 +26,10 @@ export default {
       }
     })
   },
-  runTask(url){
-    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS+url)
+  runTask (url) {
+    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS + url)
+  },
+  getProgress () {
+    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS + '/active_rounds_progress')
   }
 }

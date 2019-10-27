@@ -6,7 +6,7 @@ import axios from './helpers/axios'
 import store from './store'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'es6-promise/auto'
-import vuetify from './plugins/vuetify';
+import vuetify from './plugins/vuetify'
 
 Vue.filter('capitalize', function (value) {
   return value.toUpperCase()

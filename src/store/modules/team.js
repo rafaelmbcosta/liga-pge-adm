@@ -13,62 +13,64 @@ const getters = {
 }
 
 const mutations = {
-  ADD_TEAM(state, team) {
+  ADD_TEAM (state, team) {
     service.addTeam(team)
-    .then(_response => {
-      store.commit('util/SEND_MESSAGE', ['success', 'Time criado com sucesso'])
-      store.dispatch('team/loadTeams')
-    })
-    .catch(error => {
-      store.commit('util/SEND_MESSAGE', ['error', 'Erro ao criar jogador '+error])
-    })
-    state.loading = false
+      .then(_response => {
+        store.commit('util/SEND_MESSAGE', ['success', 'Time criado com sucesso'])
+        store.dispatch('team/loadTeams')
+      })
+      .catch(error => {
+        store.commit('util/SEND_MESSAGE', ['error', 'Erro ao criar jogador ' + error])
+      })
+      .finally(() => {
+        state.loading = false
+      })
   },
-  TOGGLE_TEAM_FORM(state, show) {
+  TOGGLE_TEAM_FORM (state, show) {
     state.showTeamForm = show
   },
-  GET_ORIGINAL_TEAMS(state, value) {
+  GET_ORIGINAL_TEAMS (state, value) {
     service.getAPITeams(value)
       .then(response => {
         state.searchTeams = response.data
       })
       .catch(error => {
         store.commit('util/SEND_MESSAGE', ['error', error])
-    })
+      })
   },
 
-  TEAM_ACTIVATION(state, [team, value]) {
+  TEAM_ACTIVATION (state, [team, value]) {
     service.teamActivation(team, value)
-    .then(_response => {
-      store.commit('util/SEND_MESSAGE', ['success', 'Time ativado/desativado com sucesso'])
-      store.dispatch('team/loadTeams')
-    })
-    .catch(_error => {
-     store.commit('util/SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
-    })
-  },
+      .then(_response => {
+        store.commit('util/SEND_MESSAGE', ['success', 'Time ativado/desativado com sucesso'])
+        store.dispatch('team/loadTeams')
+      })
+      .catch(_error => {
+        store.commit('util/SEND_MESSAGE', ['error', 'Erro ao ativar/desativar time'])
+      })
+  }
 }
 
 const actions = {
-  loadTeams({ commit }) {
+  loadTeams ({ commit }) {
     state.teams = []
     service.getTeams()
-    .then(response =>  {
-      state.teams = response.data
-    })
-    .catch(error => {
-      store.commit('util/SEND_MESSAGE', ['error', error])
-    })
+      .then(response => {
+        state.teams = response.data
+      })
+      .catch(error => {
+        store.commit('util/SEND_MESSAGE', ['error', error])
+      })
   },
-  addTeam({ commit }, team){
+  addTeam ({ commit }, team) {
     commit('ADD_TEAM', team)
   },
-  teamActivation({ commit }, [team, value]){
+  teamActivation ({ commit }, [team, value]) {
     store.dispatch('util/loading', true)
     commit('TEAM_ACTIVATION', [team, value])
     store.dispatch('util/loading', false)
   },
-  getAPITeams({ commit }, value) {
+  getAPITeams ({ commit }, value) {
     commit('GET_ORIGINAL_TEAMS', value)
   }
 }
