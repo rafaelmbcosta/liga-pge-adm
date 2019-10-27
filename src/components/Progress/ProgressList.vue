@@ -47,7 +47,7 @@ export default {
       this.loading = true
       service.getProgress()
         .then(response => {
-          this.rounds = response.data
+          this.rounds = response.data.progress
         })
         .catch(error => {
           this.$store.commit('util/SEND_MESSAGE', ['error', 'Erro ao executar rotina ' + error])
