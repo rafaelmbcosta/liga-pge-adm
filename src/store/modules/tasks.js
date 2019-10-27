@@ -52,19 +52,19 @@ const getters = {
 }
 
 const mutations = {
-  SELECT_TASK (state, task) {
+  SELECT_TASK (_state, task) {
     task.loading = true
     return task
   },
-  TOGGLE_LOADING (state, [task, value]) {
+  TOGGLE_LOADING (_state, [task, value]) {
     task.loading = value
   },
-  RUN_TASK (task) {
+  RUN_TASK (_state, task) {
     let url = {
-      'closed_market': '/closed_market_routines',
-      'round_finished': '/round_finished_routines',
-      'currencies': '/currencies/rerun',
-      'general_tasks': '/general_tasks_routines'
+      closed_market: '/closed_market_routines',
+      round_finished: '/round_finished_routines',
+      currencies: '/currencies/rerun',
+      general_tasks: '/general_tasks_routines'
     }
     service.runTask(url[task.action])
       .then(_response => {
