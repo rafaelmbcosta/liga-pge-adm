@@ -13,7 +13,7 @@ const fetch = (mockData, time = 0) => {
 }
 
 export default {
-  teamActivation(_team, _value){
+  teamActivation (_team, _value) {
     return fetch({ 'data': { "sucesso": true } }, 500)
 
   },
@@ -25,7 +25,7 @@ export default {
     return fetch({ 'data': teams }, 500)
   },
 
-  addTeam(team) {
+  addTeam (team) {
     let params = { name: team.nome,
                    player_name: team.nome_cartola,
                    url_escudo_png: team.url_escudo_png,
@@ -35,13 +35,13 @@ export default {
     return fetch({ 'data': { "sucesso": true } }, 500)
   },
   login (email, password) {
-    if (email == 'admin@gmail.com' && password == '123456'){
+    if (email == 'admin@gmail.com' && password == '123456') {
       return fetch({'data': {'jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'}})
     } else {
-      return Promise.reject('Login Inválido');
+      return Promise.reject('Login Inválido')
     }
   },
-  getProgress(){
+  getProgress () {
     return fetch({ 'data': progress }, 2000)
   }
 }

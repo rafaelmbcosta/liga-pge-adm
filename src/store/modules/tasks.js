@@ -4,6 +4,17 @@ import store from '../index'
 const state = {
   tasks: [
     {
+      title: 'Rotinas gerais',
+      description: [
+        'Finaliza Rodadas',
+        'Fecha Mercado',
+        'Atualiza Times',
+        'Finaliza/Inicia temporada'
+      ],
+      action: 'general_tasks',
+      loading: false
+    },
+    {
       title: 'Rotinas de mercado fechado',
       description: [
         'Criação dos confrontos',
@@ -48,11 +59,12 @@ const mutations = {
   TOGGLE_LOADING (state, [task, value]) {
     task.loading = value
   },
-  RUN_TASK (state, task) {
+  RUN_TASK (task) {
     let url = {
       'closed_market': '/closed_market_routines',
       'round_finished': '/round_finished_routines',
-      'currencies': '/currencies/rerun'
+      'currencies': '/currencies/rerun',
+      'general_tasks': '/general_tasks_routines'
     }
     service.runTask(url[task.action])
       .then(_response => {

@@ -1,11 +1,22 @@
 <template>
-  <v-row justify="center">
-    <v-col cols="10" justify-self="center" >
-      <v-row
-        justify="center"
-        align="top"
-      >
-        <TaskItem class="mx-4" v-for="(task, index) in getTasks" :task="task" :key="index" xs3/>
+  <v-row>
+    <v-col cols="12">
+      <div class="headline orange--text text--darken-3">ROTINAS</div>
+      <v-row>
+        <v-col
+          cols="3"
+          xs="12"
+          sm="12"
+          xl="3"
+          lg="3"
+          md="6"
+          v-for="(task, index) in getTasks"
+          :key="index"
+        >
+          <TaskItem
+            :task="task"
+          />
+        </v-col>
       </v-row>
     </v-col>
   </v-row>

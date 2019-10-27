@@ -28,5 +28,8 @@ export default {
   },
   runTask (url) {
     return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS + url)
+  },
+  getProgress () {
+    return customAxios.get(process.env.VUE_APP_CUSTOM_API_ADDRESS + '/active_rounds_progress')
   }
 }

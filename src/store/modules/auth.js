@@ -1,7 +1,7 @@
 import customAxios from '@/auth/axios-auth'
 import store from '../index'
 import router from '@/router'
-import originalApiService from '@/service/originalApiService'
+import originalApiService from '@/service/'
 
 const state = {
   token: localStorage.getItem('token')
