@@ -5,7 +5,7 @@
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
-              <v-toolbar light color="orange lighten-2">
+              <v-toolbar light flat color="orange lighten-2">
                 <v-toolbar-title>Login</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
@@ -25,6 +25,7 @@
                     v-model="loginData.password"
                     name="password"
                     label="Password"
+                    v-on:keyup.enter="login"
                     type="password" color="orange darken-2">
                   </v-text-field>
                 </v-form>
@@ -48,13 +49,12 @@ export default {
       loginData: {
         email: null,
         password: null
-      },
-      drawer: null
+      }
     }
   },
   methods: {
     login () {
-      this.$store.dispatch('login', this.loginData)
+      this.$store.dispatch('auth/login', this.loginData)
     }
   },
   props: {

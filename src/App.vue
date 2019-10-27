@@ -6,12 +6,13 @@
       :color="snackBar.color"
       :timeout="6000"
       :vertical='true'
-      :top="true"
+      :bottom="true"
+      :left="true"
     >
       {{ snackBar.text }}
       <v-btn
         dark
-        flat
+        text
         @click="closeSnack"
       >
         Close
@@ -25,40 +26,53 @@
       color="teal darken-1"
       v-if="loading"
     ></v-progress-circular>
-    <v-toolbar app>
+
+    <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Administrador </span>
         <span class="font-weight-light orange--text">LIGA PGE</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn to="/" flat>Login</v-btn>
-        <v-btn to="/players" flat>Jogadores</v-btn>
-        <v-btn to="/about" flat>Sobre</v-btn>
-        <v-btn @click="logout" to="/logout" flat>Logout</v-btn>
+      <v-toolbar-items
+        class="hidden-sm-and-down"
+        v-if="isLoggedIn">
+        <v-btn to="/" text>Jogadores</v-btn>
+        <v-btn to="/tasks" text>Rotinas</v-btn>
+
+        <v-btn
+          @click="logout"
+          to="/logout"
+          v-if="isLoggedIn"
+          icon
+        >
+          <v-icon>
+            logout
+          </v-icon>
+
+        </v-btn>
       </v-toolbar-items>
-      
-    </v-toolbar>
+    </v-app-bar>
+
     <v-content>
       <v-spacer></v-spacer>
-    loading: {{ loading }}
-
-      <router-view/>
+      <v-container>
+        <router-view/>
+      </v-container>
     </v-content>
   </v-app>
 </template>
+
 <script>
-
 import { mapGetters, mapActions, mapState } from 'vuex'
-
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['getToken']),
-    ...mapState(['snackBar', 'loading'])
+    ...mapState('util', ['snackBar', 'loading']),
+    ...mapGetters('auth', ['isLoggedIn'])
   },
   methods: {
-    ...mapActions(['logout', 'closeSnack'])
+    ...mapActions('auth', ['logout']),
+    ...mapActions('util', ['closeSnack'])
   },
   data() {
     return {
@@ -66,13 +80,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .progress{
-    position: fixed;
-    left: 47%;
-    top: 35%;
-    z-index: 9999;
-  }
-</style>
-

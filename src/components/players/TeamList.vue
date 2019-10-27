@@ -28,14 +28,14 @@ import TeamItem from "./TeamItem"
 
 export default {
   created() {
-    this.$store.dispatch("loadTeams")
+    this.$store.dispatch("team/loadTeams")
   },
   computed: {
-    ...mapGetters(["getTeams"])
+    ...mapGetters('team', ["getTeams"])
   },
   methods: {
     showTeamForm(){
-      this.$store.commit('TOGGLE_TEAM_FORM', true)
+      this.$store.commit('team/TOGGLE_TEAM_FORM', true)
     }
   },
   components: {

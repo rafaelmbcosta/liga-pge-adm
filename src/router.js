@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from './components/Login.vue'
-import Main from './components/players/Main.vue'
-import store from './store/store.js'
+import Login from './views/Login.vue'
+import Main from './views/Players.vue'
+import TasksLog from './views/TasksLog'
+import store from './store'
 
 Vue.use(Router)
 
@@ -11,39 +12,40 @@ let router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: Login
     },
     {
-      path: '/players',
+      path: '/',
       name: 'players',
       component: Main,
-      // meta: {
-      //   requiresAuth: true
-      // }
+      meta: { requiresAuth: true }
     },
     {
-      path: '/logout',
-      name: 'logout',
-      component: Login
+      path: '/tasks',
+      name: 'tasks',
+      component: TasksLog,
+      meta: { requiresAuth: true }
     }
   ]
 })
- 
-export default router
 
-router.beforeEach((to, from, next) => {
-  console.log(store.getters.isLoggedIn)
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
+router.beforeEach((to, _from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (store.getters['auth/isLoggedIn']) {
       next()
-      return
     } else {
-      store.dispatch('sendMessage', ['error', 'Você não tem permissão para acessar esse conteúdo'])
-      router.push({name: 'login'})
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
     }
   } else {
-    next() 
+    next()
   }
 })
+
+export default router
