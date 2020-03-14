@@ -11,7 +11,7 @@
       <v-list two-line subheader>
           <TeamItem
             v-for="(team, i) in getTeams"
-            :key = "i" 
+            :key = "i"
             :team = "team"
             :first = "i == 0"
             :edit = "true"
@@ -24,17 +24,17 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import TeamItem from "./TeamItem"
+import TeamItem from './TeamItem'
 
 export default {
-  created() {
-    this.$store.dispatch("team/loadTeams")
+  created () {
+    this.$store.dispatch('team/loadTeams')
   },
   computed: {
-    ...mapGetters('team', ["getTeams"])
+    ...mapGetters('team', ['getTeams'])
   },
   methods: {
-    showTeamForm(){
+    showTeamForm () {
       this.$store.commit('team/TOGGLE_TEAM_FORM', true)
     }
   },

@@ -3,9 +3,9 @@
     <v-divider v-if="!first"> </v-divider>
     <v-list-item>
       <v-list-item-avatar>
-        <v-img 
+        <v-img
           class="img-small"
-          :src="imageError ? require('@/assets/fac.png') : team.url_escudo_png" 
+          :src="imageError ? require('@/assets/fac.png') : team.url_escudo_png"
           @error="altImageError()"
         ></v-img>
       </v-list-item-avatar>
@@ -30,8 +30,8 @@
 import { mapState } from 'vuex'
 
 export default {
-  data(){
-    return{
+  data () {
+    return {
       imageError: false
     }
   },
@@ -39,13 +39,13 @@ export default {
     ...mapState(['loading'])
   },
   methods: {
-    altImageError() {
+    altImageError () {
       this.imageError = true
     }
   },
-  props: ["team", "first", "edit"],
+  props: ['team', 'first', 'edit'],
   watch: {
-    'team.active': function(val) {
+    'team.active': function (val) {
       this.$store.dispatch('util/loading')
       this.$store.dispatch('team/teamActivation', [this.team, val])
     }

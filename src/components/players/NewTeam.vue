@@ -41,7 +41,7 @@
               {{ data.item.nome }}
             </template>
             <template v-else>
-              <TeamItem 
+              <TeamItem
                 :team="{ name: data.item.nome,
                         player_name: data.item.nome_cartola,
                         url_escudo_png: data.item.url_escudo_png,
@@ -81,7 +81,7 @@ import { mapActions, mapState } from 'vuex'
 import TeamItem from './TeamItem'
 
 export default {
-  data(){
+  data () {
     return {
       autoCompleteInput: '',
       selectedTeam: null,
@@ -102,22 +102,22 @@ export default {
   },
   methods: {
     ...mapActions('team', ['hideNewTeam']),
-    validate(){
+    validate () {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('team/addTeam', this.selectedTeam)
       }
     },
-    hideNewTeam(){
+    hideNewTeam () {
       this.$store.commit('team/TOGGLE_TEAM_FORM', false)
     },
-    cleanFields(){
+    cleanFields () {
       this.autoCompleteInput = null
       this.selectedTeam = null
     },
-    queryName(val){
-      return "name"
+    queryName (val) {
+      return 'name'
     },
-    getAPITeams(val){
+    getAPITeams (val) {
       this.loading = true
       this.$store.dispatch('team/getAPITeams', this.autoCompleteInput)
       this.loading = false
@@ -128,4 +128,3 @@ export default {
   }
 }
 </script>
-

@@ -28,7 +28,7 @@ export default {
   computed: {
     ...mapGetters('team', {
       getTeamForm: 'getTeamForm',
-      getTeams:  'getTeams'
+      getTeams: 'getTeams'
     })
   },
   components: {
