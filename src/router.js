@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Login from './views/Login.vue'
-import Main from './views/Players.vue'
-import TasksLog from './views/TasksLog'
-import store from './store'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Login from './views/Login.vue';
+import Main from './views/Players.vue';
+import TasksLog from './views/TasksLog';
+import store from './store';
 
 Vue.use(Router)
 
