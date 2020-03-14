@@ -8,9 +8,9 @@
     "test": "jest",
     "lint": "vue-cli-service lint",
     "postinstall": "npm run build",
-    "test:unit:coverage:build": "CODACY_PROJECT_TOKEN=$CODACY_PROJECT_TOKEN jest --coverage && cat ./test/jest/coverage/lcov.info | codacy-coverage",
-    "start": "node server.js",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit:coverage": "jest --coverage",
+    "test:unit:coverage:build": "CODACY_PROJECT_TOKEN=$CODACY_PROJECT_TOKEN jest --coverage && cat ./coverage/lcov.info | codacy-coverage",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
