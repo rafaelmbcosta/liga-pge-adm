@@ -74,7 +74,7 @@ export default {
     ...mapActions('auth', ['logout']),
     ...mapActions('util', ['closeSnack'])
   },
-  data() {
+  data () {
     return {
     }
   }
